@@ -1,0 +1,76 @@
+.footer{
+    width: 1517px;
+    height: 270px;
+    border: none;
+    background-color: lightgray;
+}
+
+.sosyal-medya{
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 50px;
+}
+
+.sosyal-medya .çizgi{
+    width: 25%;
+    height: 2px;
+    background-color: black;
+    margin-top: 22px;
+}
+
+.sosyal-medya .sosyal-medya-eleman{
+    display: flex;
+    flex-direction: row;
+    margin: 0px 15px;
+}
+
+.sosyal-medya .sosyal-medya-eleman .ikon{
+    font-size: 40px;
+    margin: 0px 15px;
+    cursor: pointer;
+}
+
+.bilgilendirme{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+
+.bilgilendirme-başlık{
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.bilgilendirme-açıklama{
+    font-size: 18px;
+    margin-top: 12px;
+}
+
+.copy{
+    vertical-align: middle;
+}
+
+.çerezler{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+.çerezler .çerez{
+    font-size: 18px;
+    font-weight: 400;
+    margin-right: 20px;
+    border: underline;
+}
+
+.çerezler hr{
+    margin: 0px;
+    background-color: black;
+    height: 20px;
+    width: 1px;
+    margin-right: 15px;
+}

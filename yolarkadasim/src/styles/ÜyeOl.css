@@ -1,0 +1,55 @@
+.uyeOl-container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+  }
+  
+  .uyeOl-container .uyeOl-sol{
+    height: 100%;
+    flex: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
+  .uyeOl-container .uyeOl-sag{
+    height: 100%;
+    flex: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .uyeOl-sag .tanım{
+    margin-bottom: 30px;
+  }
+  
+  form .üyeOl-giriş{
+    margin-bottom: 15px;
+    width: 416px;
+  }
+  
+  .üyeOl-giriş .giriş{
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+  
+  .kayıtOl-btn{
+    width: 450px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+  }
+  
+  .kayıtOl-btn:hover {
+    background-color: #0056b3;
+  }

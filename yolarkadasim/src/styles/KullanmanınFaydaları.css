@@ -1,0 +1,52 @@
+.tanım {
+    font-size: 32px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.faydaları-container {
+    width: 1200px;
+    height: 280px;
+    border: 1px solid black;
+    border-radius: 20px;
+    margin: 20px 150px;
+    background-color: ghostwhite;
+}
+
+.faydaları-container .faydalarıDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.faydalarıDiv .faydaları {
+    margin-left: 60px;
+}
+
+.faydalarıDiv .faydaları .başlık {
+    font-size: 30px;
+    font-weight: 500;
+    margin: 30px;
+    text-align: center;
+}
+
+.açıklamaDiv {
+    width: 400px;
+    height: auto;
+    border: none;
+    margin-left: 50px;
+    flex-wrap: wrap;
+}
+
+.açıklamaDiv .açıklama {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 30px;
+}
+
+.faydaları-resim img {
+    width: 450px;
+    height: auto;
+    margin: 25px 80px;
+}
+
