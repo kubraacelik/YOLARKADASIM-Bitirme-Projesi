@@ -1,55 +1,116 @@
-.uyeOl-container{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-  }
-  
-  .uyeOl-container .uyeOl-sol{
-    height: 100%;
-    flex: 50%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
-  
-  .uyeOl-container .uyeOl-sag{
-    height: 100%;
-    flex: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .uyeOl-sag .tanım{
-    margin-bottom: 30px;
-  }
-  
-  form .üyeOl-giriş{
-    margin-bottom: 15px;
-    width: 416px;
-  }
-  
-  .üyeOl-giriş .giriş{
-    width: 100%;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 16px;
-  }
-  
-  .kayıtOl-btn{
-    width: 450px;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 18px;
-    transition: background-color 0.3s;
-  }
-  
-  .kayıtOl-btn:hover {
-    background-color: #0056b3;
-  }
+.uyeOl-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.uyeOl-container .uyeOl-sol {
+  height: 100%;
+  flex: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.uyeOl-container .uyeOl-sag {
+  height: 100%;
+  flex: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.uyeOl-sag .tanım {
+  margin-bottom: 30px;
+}
+
+form .üyeOl-giriş {
+  margin-bottom: 15px;
+  width: 416px;
+}
+
+.üyeOl-giriş .giriş {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.kayıtOl-btn {
+  width: 420px;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s;
+}
+
+.kayıtOl-btn:hover {
+  background-color: #0056b3;
+}
+
+.sözleşme {
+  font-size: 18px
+}
+
+.sözleşme input {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+.sözleşme-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sözleşme-modal h2{
+  font-size: 28px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.sözleşme-modal p{
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.sözleşme-içeriği {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  width: 550px;
+  height: 400px;
+  overflow: auto;
+}
+
+.okudum-btn-container{
+  text-align: end;
+  margin-right: 20px;
+}
+
+.okudum-btn{
+  padding: 10px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.okudum-btn:hover {
+  background-color: #0056b3;
+}

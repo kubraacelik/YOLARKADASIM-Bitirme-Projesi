@@ -1,0 +1,72 @@
+.girisYap-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.girisYap-container .girisYap-sol {
+    height: 100%;
+    flex: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.girisYap-container .girisYap-sag {
+    height: 100%;
+    flex: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.girisYap-sag .tanım {
+    margin-bottom: 30px;
+}
+
+form .girisYap-giris {
+    margin-bottom: 15px;
+    width: 416px;
+}
+
+.girisYap-giris .giris {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.girisYap-btn {
+    width: 420px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.girisYap-btn:hover {
+    background-color: #0056b3;
+}
+
+.beni-unutma {
+    font-size: 18px
+}
+
+.beni-unutma input {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+.parolayi-unuttum{
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: underline;
+}
