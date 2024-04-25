@@ -1,11 +1,13 @@
 import React from "react";
 import "../styles/YolculukAra.css";
-import car1 from '../assets/örnek1.jpg'
-import car2 from '../assets/örnek2.jpg'
-import car3 from '../assets/örnek3.jpg'
-import car4 from '../assets/örnek4.jpg'
+import { useNavigate } from "react-router-dom";
+import car1 from "../assets/örnek1.jpg";
+import car2 from "../assets/örnek2.jpg";
+import car3 from "../assets/örnek3.jpg";
+import car4 from "../assets/örnek4.jpg";
 
 function YolculukAra() {
+  const navigate = useNavigate();
   return (
     <div>
       <div>
@@ -14,7 +16,10 @@ function YolculukAra() {
             <img src={car1} alt="" />
           </div>
           <div className="tanım">
-            <p>Yolculuk Maliyetlerini Düşüren Ekonomik Platform: Seyahatlerini Paylaş, Masrafları Azalt!</p>
+            <p>
+              Yolculuk Maliyetlerini Düşüren Ekonomik Platform: Seyahatlerini Paylaş,
+              Masrafları Azalt!
+            </p>
           </div>
         </div>
       </div>
@@ -53,7 +58,9 @@ function YolculukAra() {
           </div>
         </div>
         <div>
-            <button className="arama-btn">ARA</button>
+          <button onClick={() => navigate("/yolculukGörüntüle")} className="arama-btn">
+            ARA
+          </button>
         </div>
       </div>
     </div>

@@ -1,0 +1,40 @@
+.seyahat {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 80px 0px 80px 0;
+  gap: 20px;
+}
+.kart {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  width: 39rem;
+  height: 20rem;
+  border-radius: 4rem;
+  box-shadow: 36px 48px 41px 12px rgba(0, 0, 0, 0.1),
+    0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+.kart-icerik {
+  width: 70%;
+}
+.kart-ücret {
+  width: 30%;
+}
+.kart-ücret p {
+  font-size: 30px;
+  margin: 59px 0px 0px 65px;
+}
+.kart-icerik-avatar {
+  display: flex;
+}
+.kart-icerik-avatar p {
+  font-size: 20px;
+  margin: 15px;
+}
+.open-kart {
+  border: 0;
+  background-color: white;
+  border-radius: 65px;
+  cursor: pointer;
+}

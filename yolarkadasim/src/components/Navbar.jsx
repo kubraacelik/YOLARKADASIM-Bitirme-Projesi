@@ -50,15 +50,16 @@ export default function Navbar() {
           <Box>
             <IconButton size="medium" color="inherit">
               <IoSearch style={{ color: "#EB7310", fontSize: 28 }} />
-              <Button sx={{ color: "#EB7310", fontSize: 18, fontWeight: 600 }}>
+              <Button
+                onClick={() => navigate("/yolculukGörüntüle")}
+                sx={{ color: "#EB7310", fontSize: 18, fontWeight: 600 }}
+              >
                 YOLCULUK ARA
               </Button>
             </IconButton>
             <IconButton size="medium" color="inherit" onClick={handleClick}>
               <IoPerson style={{ color: "#EB7310", fontSize: 28 }} />
-              <MdKeyboardArrowDown
-                style={{ cursor: "pointer", color: "#EB7310" }}
-              />
+              <MdKeyboardArrowDown style={{ cursor: "pointer", color: "#EB7310" }} />
             </IconButton>
             <IconButton size="medium" color="inherit">
               <MdLightMode style={{ color: "#EB7310", fontSize: 28 }} />
@@ -76,11 +77,11 @@ export default function Navbar() {
             <MenuItem sx={{ fontSize: 17 }} onClick={() => navigate("/uyeOl")}>
               Üye Ol
             </MenuItem>
-            <MenuItem
-              sx={{ fontSize: 17 }}
-              onClick={() => navigate("/girisYap")}
-            >
+            <MenuItem sx={{ fontSize: 17 }} onClick={() => navigate("/girisYap")}>
               Giriş Yap
+            </MenuItem>
+            <MenuItem sx={{ fontSize: 17 }} onClick={() => navigate("/profilAyarlari")}>
+              Profil Ayarları
             </MenuItem>
           </Menu>
         </Toolbar>
