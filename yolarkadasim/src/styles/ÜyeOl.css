@@ -30,7 +30,7 @@ form .üyeOl-giriş {
   width: 416px;
 }
 
-.üyeOl-giriş .giriş {
+#ad, #soyad, #eposta, #sifre, #tekrarliSifre{
   width: 100%;
   padding: 15px;
   border: 1px solid #ccc;
@@ -55,10 +55,13 @@ form .üyeOl-giriş {
 }
 
 .sözleşme {
-  font-size: 18px
+  font-size: 18px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.sözleşme input {
+.sözleşme .checkbox {
   margin-right: 10px;
   transform: scale(1.2);
 }
@@ -113,4 +116,22 @@ form .üyeOl-giriş {
 
 .okudum-btn:hover {
   background-color: #0056b3;
+}
+
+.input-error{
+  border-color: red;
+}
+
+.error{
+  color: red;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.hesabinVarsaDiv{
+  margin: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
 }

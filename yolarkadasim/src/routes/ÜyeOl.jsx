@@ -4,10 +4,50 @@ import Footer from "../components/Footer";
 import "../styles/ÜyeOl.css";
 import resim1 from "../assets/üyeOl-resim1.png";
 import resim2 from "../assets/üyeOl-resim2.png";
+import { useFormik } from "formik";
+import { basicSchema } from "../schemas";
+import { Link } from "react-router-dom";
+import axios from 'axios'
+
+const onSubmit = async (values, actions) => {
+  console.log(values);
+  console.log(actions);
+  try {
+    await addUserToMongoDB(values); // Kullanıcı bilgilerini MongoDB'ye gönder
+    actions.resetForm(); // Formu sıfırla
+    alert('Kullanıcı başarıyla kaydedildi.');
+  } catch (error) {
+    alert('Kullanıcı eklenirken bir hata oluştu.');
+  }
+};
+
+const addUserToMongoDB = async (userData) => {
+  try {
+    const response = await axios.post('http://localhost:8080/api/kullanicilar', userData);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log('Bir hata oluştu:', error);
+    throw error;
+  }
+};
 
 export default function ÜyeOl() {
   const [agreed, setAgreed] = useState(false);
   const [showContract, setShowContract] = useState(false); // Kullanıcı sözleşmesi görünürlüğünü kontrol etmek için bir durum değişkeni
+
+  const { values, errors, isSubmitting, handleSubmit, handleChange } =
+    useFormik({
+      initialValues: {
+        ad: "",
+        soyad: "",
+        eposta: "",
+        sifre: "",
+        // tekrarliSifre: "",
+      },
+      validationSchema: basicSchema,
+      onSubmit,
+    });
 
   const handleAgreementChange = () => {
     setAgreed(!agreed);
@@ -15,17 +55,6 @@ export default function ÜyeOl() {
       setShowContract(true); // Onaylandığında sözleşme açılsın
     } else {
       setShowContract(false); // Onay kaldırıldığında sözleşme kapatılsın
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (agreed) {
-      // Onaylanmış, kayıt işlemi gerçekleştirilebilir
-      console.log("Kullanıcı onayladı, kayıt işlemi gerçekleştiriliyor...");
-    } else {
-      // Onaylanmamış, kullanıcıya uyarı verilebilir
-      console.log("Kullanıcı onaylamadı, kayıt işlemi gerçekleştirilemez.");
     }
   };
 
@@ -49,48 +78,71 @@ export default function ÜyeOl() {
           <div className="uyeOl-sag">
             <div className="tanım">Üye Olun</div>
             <form onSubmit={handleSubmit}>
-              <div class="üyeOl-giriş">
+              <div className="üyeOl-giriş">
                 <input
                   type="text"
                   placeholder="Adınızı Giriniz"
-                  class="giriş"
+                  value={values.ad}
+                  onChange={handleChange}
+                  id="ad"
+                  className={errors.ad ? "input-error" : ""}
                 />
+                {errors.ad && <p className="error">{errors.ad}</p>}
               </div>
-              <div class="üyeOl-giriş">
+              <div className="üyeOl-giriş">
                 <input
                   type="text"
                   placeholder="Soyadınızı Giriniz"
-                  class="giriş"
+                  value={values.soyad}
+                  onChange={handleChange}
+                  id="soyad"
+                  className={errors.soyad ? "input-error" : ""}
                 />
+                {errors.soyad && <p className="error">{errors.soyad}</p>}
               </div>
-              <div class="üyeOl-giriş">
+              <div className="üyeOl-giriş">
                 <input
-                  type="text"
+                  type="email"
                   placeholder="E-Posta Adresinizi Giriniz"
-                  class="giriş"
+                  value={values.eposta}
+                  onChange={handleChange}
+                  id="eposta"
+                  className={errors.eposta ? "input-error" : ""}
                 />
+                {errors.eposta && <p className="error">{errors.eposta}</p>}
               </div>
-              <div class="üyeOl-giriş">
+              <div className="üyeOl-giriş">
                 <input
-                  type="Password"
+                  type="password"
                   placeholder="Şifrenizi Giriniz"
-                  class="giriş"
+                  value={values.sifre}
+                  onChange={handleChange}
+                  id="sifre"
+                  className={errors.sifre ? "input-error" : ""}
                 />
+                {errors.sifre && <p className="error">{errors.sifre}</p>}
               </div>
-              <div class="üyeOl-giriş">
+              {/* <div className="üyeOl-giriş">
                 <input
-                  type="Password"
+                  type="password"
                   placeholder="Şifrenizi Tekrar Giriniz"
-                  class="giriş"
+                  value={values.tekrarliSifre}
+                  onChange={handleChange}
+                  id="tekrarliSifre"
+                  className={errors.tekrarliSifre ? "input-error" : ""}
                 />
-              </div>
-              <div class="üyeOl-giriş">
+                {errors.tekrarliSifre && (
+                  <p className="error">{errors.tekrarliSifre}</p>
+                )}
+              </div> */}
+              <div className="üyeOl-giriş">
                 <label className="sözleşme">
                   <input
                     type="checkbox"
                     checked={agreed}
                     onChange={handleAgreementChange}
                     onClick={handleShowContract}
+                    className="checkbox"
                   />
                   Kullanıcı sözleşmesini okudum ve kabul ediyorum.
                 </label>
@@ -164,9 +216,16 @@ export default function ÜyeOl() {
                   </div>
                 </div>
               )}
-              <button className="kayıtOl-btn" type="submit">
+              <button
+                className="kayıtOl-btn"
+                type="submit"
+                disabled={isSubmitting}
+              >
                 Kayıt Ol
               </button>
+              <div className="hesabinVarsaDiv">
+              <Link to='/girisYap'>Hesabın var mı?</Link>
+              </div>
             </form>
           </div>
         </div>

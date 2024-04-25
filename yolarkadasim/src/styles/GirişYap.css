@@ -64,9 +64,13 @@ form .girisYap-giris {
     transform: scale(1.2);
 }
 
-.parolayi-unuttum{
-    cursor: pointer;
-    font-size: 18px;
+.input-error{
+    border-color: red;
+  }
+  
+  .error{
+    color: red;
+    font-size: 14px;
     font-weight: 500;
-    text-decoration: underline;
-}
+    text-align: left;
+  }
