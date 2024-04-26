@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/GirişYap.css";
-import resim1 from "../assets/üyeOl-resim1.png";
 import { useFormik } from "formik";
 import { advancedSchema } from "../schemas";
 import { Link } from "react-router-dom";
@@ -35,13 +34,10 @@ export default function GirişYap() {
       <Navbar />
       <div>
         <div className="girisYap-container">
-          <div
-            className="girisYap-sol"
-            style={{ backgroundImage: `url(${resim1})` }}
-          ></div>
-          <div className="girisYap-sag">
+          <div className="girisYap">
             <div className="tanım">Giriş Yapın</div>
             <form onSubmit={handleSubmit}>
+
               <div className="girisYap-giris">
                 <input
                   type="email"
@@ -53,6 +49,7 @@ export default function GirişYap() {
                 />
                 {errors.email && <p className="error">{errors.email}</p>}
               </div>
+
               <div className="girisYap-giris">
                 <input
                   type="password"
@@ -64,6 +61,7 @@ export default function GirişYap() {
                 />
                 {errors.sifre && <p className="error">{errors.sifre}</p>}
               </div>
+
               <div className="girisYap-giris">
                 <label className="beni-unutma">
                   <input type="checkbox" />Beni Unutma
@@ -73,7 +71,7 @@ export default function GirişYap() {
                 Giriş Yap
               </button>
               <div className="hesabinVarsaDiv">
-              <Link to='/uyeOl'>Hesabın yok mu?</Link>
+              <Link style={{ color: 'white' }} to='/uyeOl'>Hesabın yok mu?</Link>
               </div>
             </form>
           </div>

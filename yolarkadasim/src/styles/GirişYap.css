@@ -1,28 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 .girisYap-container {
-    width: 100%;
-    height: 100vh;
     display: flex;
-}
-
-.girisYap-container .girisYap-sol {
-    height: 100%;
-    flex: 50%;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background: url("../assets/örnek3.jpg") no-repeat;
     background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
 }
 
-.girisYap-container .girisYap-sag {
-    height: 100%;
-    flex: 50%;
+.girisYap-container .girisYap {
+    width: 550px;
+    height: 600px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    backdrop-filter: blur(15px) brightness(80%);
+    background: transparent;
+    border: none;
+    border-radius: 30px;
 }
 
-.girisYap-sag .tanım {
+.girisYap .tanım {
+    font-size: 2.7em;
     margin-bottom: 30px;
+    color: #fff;
 }
 
 form .girisYap-giris {
@@ -56,21 +64,23 @@ form .girisYap-giris {
 }
 
 .beni-unutma {
-    font-size: 18px
+    font-size: 18px;
+    color: #fff;
 }
 
 .beni-unutma input {
     margin-right: 10px;
     transform: scale(1.2);
+    
 }
 
-.input-error{
+.input-error {
     border-color: red;
-  }
-  
-  .error{
+}
+
+.error {
     color: red;
     font-size: 14px;
     font-weight: 500;
     text-align: left;
-  }
+}

@@ -1,28 +1,38 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
 .uyeOl-container {
-  width: 100%;
-  height: 100vh;
   display: flex;
-}
-
-.uyeOl-container .uyeOl-sol {
-  height: 100%;
-  flex: 50%;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background:url("../assets/örnek3.jpg")
+  no-repeat;
   background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
 }
 
-.uyeOl-container .uyeOl-sag {
-  height: 100%;
-  flex: 50%;
+
+.uyeOl-container .uyeOl {
+  width: 600px;
+  height: 650px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  backdrop-filter: blur(15px) brightness(80%);
+  background: transparent;
+  border: none;
+  border-radius: 30px;
 }
 
-.uyeOl-sag .tanım {
+.uyeOl .tanım {
+  font-size: 2.7em;
   margin-bottom: 30px;
+  color: #fff;
 }
 
 form .üyeOl-giriş {
@@ -30,7 +40,7 @@ form .üyeOl-giriş {
   width: 416px;
 }
 
-#ad, #soyad, #eposta, #sifre, #tekrarliSifre{
+#ad, #soyad, #email, #sifre, #tekrarliSifre{
   width: 100%;
   padding: 15px;
   border: 1px solid #ccc;
@@ -59,6 +69,7 @@ form .üyeOl-giriş {
   display: flex;
   flex-direction: row;
   align-items: center;
+  color: #fff;
 }
 
 .sözleşme .checkbox {
@@ -119,19 +130,19 @@ form .üyeOl-giriş {
 }
 
 .input-error{
-  border-color: red;
+  border-color:#641E16;
 }
 
 .error{
-  color: red;
-  font-size: 14px;
-  font-weight: 500;
+  color: #641E16;
+  font-size: 16px;
+  font-weight: 700;
   text-align: left;
 }
 
 .hesabinVarsaDiv{
   margin: 20px;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
   text-align: center;
 }

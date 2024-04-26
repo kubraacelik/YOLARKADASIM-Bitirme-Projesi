@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/ÜyeOl.css";
-import resim1 from "../assets/bg.png";
-import resim2 from "../assets/bg2.png";
 import { useFormik } from "formik";
 import { basicSchema } from "../schemas";
 import { Link } from "react-router-dom";
@@ -71,11 +69,7 @@ export default function ÜyeOl() {
       <Navbar />
       <div>
         <div className="uyeOl-container">
-          <div
-            className="uyeOl-sol"
-            style={{ backgroundImage: `url(${resim2})` }}
-          ></div>
-          <div className="uyeOl-sag">
+          <div className="uyeOl">
             <div className="tanım">Üye Olun</div>
             <form onSubmit={handleSubmit}>
               <div className="üyeOl-giriş">
@@ -223,8 +217,8 @@ export default function ÜyeOl() {
               >
                 Kayıt Ol
               </button>
-              <div className="hesabinVarsaDiv">
-              <Link to='/girisYap'>Hesabın var mı?</Link>
+              <div className="hesabinVarsaDiv" >
+              <Link style={{ color: 'white' }} to='/girisYap'>Hesabın var mı?</Link>
               </div>
             </form>
           </div>
