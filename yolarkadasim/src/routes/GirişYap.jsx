@@ -44,7 +44,7 @@ export default function GirişYap() {
                   placeholder="E-Mail Adresinizi Giriniz"
                   value={values.email}
                   onChange={handleChange}
-                  id="email"
+                  id="eposta"
                   className={errors.email ? "input-error" : ""}
                 />
                 {errors.email && <p className="error">{errors.email}</p>}
