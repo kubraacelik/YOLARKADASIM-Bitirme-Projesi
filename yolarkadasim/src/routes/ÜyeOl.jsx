@@ -5,7 +5,7 @@ import "../styles/ÜyeOl.css";
 import { useFormik } from "formik";
 import { basicSchema } from "../schemas";
 import { Link } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 
 const onSubmit = async (values, actions) => {
   console.log(values);
@@ -13,19 +13,22 @@ const onSubmit = async (values, actions) => {
   try {
     await addUserToMongoDB(values); // Kullanıcı bilgilerini MongoDB'ye gönder
     actions.resetForm(); // Formu sıfırla
-    alert('Kullanıcı başarıyla kaydedildi.');
+    alert("Kullanıcı başarıyla kaydedildi.");
   } catch (error) {
-    alert('Kullanıcı eklenirken bir hata oluştu.');
+    alert("Kullanıcı eklenirken bir hata oluştu.");
   }
 };
 
 const addUserToMongoDB = async (userData) => {
   try {
-    const response = await axios.post('http://localhost:8080/api/kullanicilar/register', userData);
+    const response = await axios.post(
+      "http://localhost:8080/api/kullanicilar/register",
+      userData
+    );
     console.log(response.data);
     return response.data;
   } catch (error) {
-    console.log('Bir hata oluştu:', error);
+    console.log("Bir hata oluştu:", error);
     throw error;
   }
 };
@@ -217,8 +220,10 @@ export default function ÜyeOl() {
               >
                 Kayıt Ol
               </button>
-              <div className="hesabinVarsaDiv" >
-              <Link style={{ color: 'white' }} to='/girisYap'>Hesabın var mı?</Link>
+              <div className="hesabinVarsaDiv">
+                <Link style={{ color: "white" }} to="/girisYap">
+                  Hesabın var mı?
+                </Link>
               </div>
             </form>
           </div>
