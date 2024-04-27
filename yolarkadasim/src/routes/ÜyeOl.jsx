@@ -21,7 +21,7 @@ const onSubmit = async (values, actions) => {
 
 const addUserToMongoDB = async (userData) => {
   try {
-    const response = await axios.post('http://localhost:8080/api/kullanicilar', userData);
+    const response = await axios.post('http://localhost:8080/api/kullanicilar/register', userData);
     console.log(response.data);
     return response.data;
   } catch (error) {
