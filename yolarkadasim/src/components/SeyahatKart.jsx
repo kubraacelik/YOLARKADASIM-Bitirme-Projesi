@@ -54,7 +54,7 @@ export const SeyahatKart = () => {
             </Timeline>
             <div className="kart-icerik-avatar">
               <Avatar src={avatar} sx={{ width: 56, height: 56, marginLeft: "50px" }} />
-              <p className>Resul Gencer</p>
+              <p>Resul Gencer</p>
             </div>
           </div>
           <div className="kart-ücret">
