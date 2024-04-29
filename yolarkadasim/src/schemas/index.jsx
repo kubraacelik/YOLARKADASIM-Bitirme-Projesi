@@ -25,7 +25,7 @@ export const basicSchema = yup.object().shape({
 
 //GİRİŞ YAP
 export const advancedSchema = yup.object().shape({
-    email: yup
+    eposta: yup
     .string()
     .email("Geçerli bir e-mail giriniz")
     .required("E-mail adresi girmek zorunludur"),
