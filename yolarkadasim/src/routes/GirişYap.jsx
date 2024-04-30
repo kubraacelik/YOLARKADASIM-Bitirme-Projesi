@@ -10,7 +10,7 @@ import axios from "axios";
 const onSubmit = async (values, actions) => {
   try {
     // Kullanıcı girişi için gerekli HTTP isteğini gönder
-    const result = await axios.post("http://localhost:8080/api/kullanicilar", {
+    const result = await axios.post("http://localhost:8080/api/kullanicilar/login", {
       eposta: values.eposta,
       sifre: values.sifre
     });
