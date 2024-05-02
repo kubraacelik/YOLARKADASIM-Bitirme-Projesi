@@ -8,53 +8,33 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const onSubmit = async (values, actions) => {
+  console.log(values);
+  console.log(actions);
   try {
-    // Kullanıcı girişi için gerekli HTTP isteğini gönder
-    const result = await axios.post("http://localhost:8080/api/kullanicilar/login", {
-      eposta: values.eposta,
-      sifre: values.sifre
-    });
-
-    // Giriş başarılı ise kullanıcıya yönlendirme yapabilirsiniz
-    // Örneğin:
-    if (result.data.success) {
-      // Kullanıcı girişi başarılı, yönlendirme yap
-      console.log("Giriş başarılı!");
-      // Örnek olarak "/anasayfa" sayfasına yönlendirme yapabilirsiniz
-      // Örnek: history.push("/anasayfa");
-    } else {
-      // Giriş başarısız ise kullanıcıya hata mesajı gösterebilirsiniz
-      console.log("Giriş başarısız!");
-      // Örneğin, bir hata mesajı göstermek için:
-      // actions.setErrors({ giriş: "E-posta veya şifre yanlış!" });
-    }
+    await loginUserFromMongoDB(values); // Kullanıcı bilgileriyle MongoDB'den giriş yap
+    actions.resetForm(); // Formu sıfırla
+    alert("Başarıyla giriş yapıldı.");
   } catch (error) {
-    console.error("Giriş hatası:", error);
-    // Hata durumunda kullanıcıya uygun bir mesaj gösterebilirsiniz
-    // actions.setErrors({ giriş: "Giriş sırasında bir hata oluştu!" });
+    alert("Giriş yapılırken bir hata oluştu.");
   }
+};
 
-  // Form işlemi tamamlandı, isSubmitting durumunu sıfırla
-  actions.setSubmitting(false);
+const loginUserFromMongoDB = async (userData) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/api/kullanicilar",
+      userData
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log("Bir hata oluştu:", error);
+    throw error;
+  }
 };
 
 
 export default function GirişYap() {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await axios.get("http://localhost:8080/api/kullanicilar");
-        setUsers(result.data);
-        console.log(result.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const { values, errors, isSubmitting, handleSubmit, handleChange } =
     useFormik({

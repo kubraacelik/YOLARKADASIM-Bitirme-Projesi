@@ -17,10 +17,10 @@ export const basicSchema = yup.object().shape({
       message: "Lütfen en az 1 büyük harf, 1 küçük harf ve 1 sayı giriniz",
     })
     .required("Şifre girmek zorunludur"),
-    // tekrarliSifre: yup
-    // .string()
-    // .oneOf([yup.ref("sifre")], "Şifreler eşleşmiyor")
-    // .required("Şifreyi tekrar girmek zorunludur"),
+    tekrarliSifre: yup
+    .string()
+    .oneOf([yup.ref("sifre")], "Şifreler eşleşmiyor")
+    .required("Şifreyi tekrar girmek zorunludur"),
 });
 
 //GİRİŞ YAP

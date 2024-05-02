@@ -44,7 +44,7 @@ export default function ÜyeOl() {
         soyad: "",
         eposta: "",
         sifre: "",
-        // tekrarliSifre: "",
+        tekrarliSifre: "",
       },
       validationSchema: basicSchema,
       onSubmit,
@@ -119,7 +119,7 @@ export default function ÜyeOl() {
                 />
                 {errors.sifre && <p className="error">{errors.sifre}</p>}
               </div>
-              {/* <div className="üyeOl-giriş">
+               <div className="üyeOl-giriş">
                 <input
                   type="password"
                   placeholder="Şifrenizi Tekrar Giriniz"
@@ -131,7 +131,7 @@ export default function ÜyeOl() {
                 {errors.tekrarliSifre && (
                   <p className="error">{errors.tekrarliSifre}</p>
                 )}
-              </div> */}
+              </div> 
               <div className="üyeOl-giriş">
                 <label className="sözleşme">
                   <input
