@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const onSubmit = async (values, actions) => {
+  
   console.log(values);
   console.log(actions);
   try {
@@ -15,7 +16,7 @@ const onSubmit = async (values, actions) => {
     actions.resetForm(); // Formu sıfırla
     alert("Kullanıcı başarıyla kaydedildi.");
   } catch (error) {
-    alert("Kullanıcı eklenirken bir hata oluştu.");
+    alert("Bu mail hesabıyla bir hesap bulunmaktadır.");
   }
 };
 
