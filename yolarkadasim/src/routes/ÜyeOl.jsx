@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/ÜyeOl.css";
@@ -6,37 +6,53 @@ import { useFormik } from "formik";
 import { basicSchema } from "../schemas";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Alert from "@mui/material/Alert";
 
-const onSubmit = async (values, actions) => {
-  
-  console.log(values);
-  console.log(actions);
-  try {
-    await addUserToMongoDB(values); // Kullanıcı bilgilerini MongoDB'ye gönder
-    actions.resetForm(); // Formu sıfırla
-    alert("Kullanıcı başarıyla kaydedildi.");
-  } catch (error) {
-    alert("Bu mail hesabıyla bir hesap bulunmaktadır.");
-  }
-};
-
-const addUserToMongoDB = async (userData) => {
-  try {
-    const response = await axios.post(
-      "http://localhost:8080/api/kullanicilar/register",
-      userData
-    );
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log("Bir hata oluştu:", error);
-    throw error;
-  }
-};
-
-export default function ÜyeOl() {
+const ÜyeOl = () => {
+  const [registerSuccess, setRegisterSuccess] = useState(null);
   const [agreed, setAgreed] = useState(false);
   const [showContract, setShowContract] = useState(false); // Kullanıcı sözleşmesi görünürlüğünü kontrol etmek için bir durum değişkeni
+
+  //Alert 3sn sonra gitsin
+  useEffect(() => {
+    if (registerSuccess !== null) {
+      const timer = setTimeout(() => {
+        setRegisterSuccess(null);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [registerSuccess]);
+
+  const onSubmit = async (values, actions) => {
+    console.log(values);
+    console.log(actions);
+    try {
+      if (agreed) {
+        await addUserToMongoDB(values); // Kullanıcı bilgilerini MongoDB'ye gönder
+        actions.resetForm(); // Formu sıfırla
+        setRegisterSuccess(true);
+      } else {
+        setRegisterSuccess(false);
+      }
+    } catch (error) {
+      setRegisterSuccess(false);
+    }
+  };
+
+  const addUserToMongoDB = async (userData) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/kullanicilar/register",
+        userData
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log("Bir hata oluştu:", error);
+      throw error;
+    }
+  };
 
   const { values, errors, isSubmitting, handleSubmit, handleChange } =
     useFormik({
@@ -52,12 +68,12 @@ export default function ÜyeOl() {
     });
 
   const handleAgreementChange = () => {
-    setAgreed(!agreed);
-    if (!showContract) {
+    if (!agreed) {
       setShowContract(true); // Onaylandığında sözleşme açılsın
     } else {
       setShowContract(false); // Onay kaldırıldığında sözleşme kapatılsın
     }
+    setAgreed(!agreed);
   };
 
   const handleShowContract = () => {
@@ -120,7 +136,7 @@ export default function ÜyeOl() {
                 />
                 {errors.sifre && <p className="error">{errors.sifre}</p>}
               </div>
-               <div className="üyeOl-giriş">
+              <div className="üyeOl-giriş">
                 <input
                   type="password"
                   placeholder="Şifrenizi Tekrar Giriniz"
@@ -132,7 +148,7 @@ export default function ÜyeOl() {
                 {errors.tekrarliSifre && (
                   <p className="error">{errors.tekrarliSifre}</p>
                 )}
-              </div> 
+              </div>
               <div className="üyeOl-giriş">
                 <label className="sözleşme">
                   <input
@@ -149,7 +165,6 @@ export default function ÜyeOl() {
               {showContract && (
                 <div className="sözleşme-modal">
                   <div className="sözleşme-içeriği">
-                    {/* Sözleşme içeriği buraya gelecek */}
                     <h2>Kullanıcı Sözleşmesi</h2>
                     <p>
                       <p>
@@ -217,15 +232,45 @@ export default function ÜyeOl() {
               <button
                 className="kayıtOl-btn"
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !agreed}
               >
                 Kayıt Ol
               </button>
+              {!agreed && !showContract && (
+                  <div>
+                  <Alert
+                    sx={{ fontSize: 15, backgroundColor: "#F1C40F", marginTop: 2 }}
+                    severity="warning"
+                  >
+                    Kullanıcı Sözleşmesini Okuyup Kabul Etmek Zorundasınız.
+                  </Alert>
+                </div>
+              )}
               <div className="hesabinVarsaDiv">
                 <Link style={{ color: "white" }} to="/girisYap">
                   Hesabın var mı?
                 </Link>
               </div>
+              {registerSuccess === true && (
+                <div>
+                  <Alert
+                    sx={{ fontSize: 20, backgroundColor: "lightgreen" }}
+                    severity="success"
+                  >
+                    Başarıyla Kayıt Olundu.
+                  </Alert>
+                </div>
+              )}
+              {registerSuccess === false && (
+                <div>
+                  <Alert
+                    sx={{ fontSize: 20, backgroundColor: "salmon" }}
+                    severity="error"
+                  >
+                    Daha Önce Bu Mail Hesabı İle Kayıt Olundu!
+                  </Alert>
+                </div>
+              )}
             </form>
           </div>
         </div>
@@ -233,4 +278,6 @@ export default function ÜyeOl() {
       </div>
     </>
   );
-}
+};
+
+export default ÜyeOl;

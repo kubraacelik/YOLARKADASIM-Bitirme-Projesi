@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/GirişYap.css";
@@ -10,6 +10,17 @@ import Alert from "@mui/material/Alert";
 
 const GirişYap = () => {
   const [loginSuccess, setLoginSuccess] = useState(null);
+
+  //Alert 3sn sonra gitsin
+  useEffect(() => {
+    if (loginSuccess !== null) {
+      const timer = setTimeout(() => {
+        setLoginSuccess(null);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [loginSuccess]);
 
   const onSubmit = async (values, actions) => {
     console.log(values);
@@ -113,7 +124,7 @@ const GirişYap = () => {
                     sx={{ fontSize: 20, backgroundColor: "salmon" }}
                     severity="error"
                   >
-                    Giriş yapılırken bir hata oluştu.
+                    E-Posta Hesabınız veya Şifreniz Hatalı!
                   </Alert>
                 </div>
               )}
