@@ -1,4 +1,4 @@
-.kisiSayiInput {
+.Input {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 400;
   border: 1px solid rgba(0, 0, 0, 0.23);
@@ -8,16 +8,13 @@
   width: 220px;
   height: 55px;
 }
-.SeyahatInput {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 400;
-  border: 1px solid rgba(0, 0, 0, 0.23);
-  font-size: 1rem;
-  padding: 16.5px 14px;
-  border-radius: 4px;
-  width: 220px;
-  height: 55px;
+
+.icon {
+  margin-right: 4px;
+  margin-top: 14px;
+  font-size: 30px;
 }
+
 .yayinla-btn {
   width: 120px;
   height: 40px;

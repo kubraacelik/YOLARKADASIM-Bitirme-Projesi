@@ -9,15 +9,68 @@ import "../styles/YolculukYayınla.css";
 import { Tarih } from "../components/Tarih";
 import { Saat } from "../components/Saat";
 import QueryBuilderOutlinedIcon from "@mui/icons-material/QueryBuilderOutlined";
+import { FaCat } from "react-icons/fa6";
+import { MdOutlineSmokeFree } from "react-icons/md";
+import { GiTakeMyMoney } from "react-icons/gi";
+import axios from "axios";
+import { useState } from "react";
 
 export default function YolculukYayınla() {
+  const [bos_koltuk_sayisi, setBos_koltuk_sayisi] = useState(0);
+  const [baslangic_noktasi, setBaslangic_noktasi] = useState("");
+  const [bitis_noktasi, setBitis_noktasi] = useState("");
+  const [tarih, setTarih] = useState("");
+  const [saat, setSaat] = useState("");
+  const [hayvan_durumu, setHayvan_durumu] = useState("");
+  const [sigara_durumu, setSigara_durumu] = useState("");
+  const [ucret, setUcret] = useState(0);
+  const [kaydetmeDurumu, setKaydetmeDurumu] = useState(null);
+
+  const handleKaydetClick = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/seyahatlar",
+        {
+          bos_koltuk_sayisi,
+          baslangic_noktasi,
+          bitis_noktasi,
+          tarih,
+          saat,
+          hayvan_durumu: convertToBoolean(hayvan_durumu),
+          sigara_durumu: convertToBoolean(sigara_durumu),
+          ucret,
+        }
+      );
+      console.log("Yolculuk başarıyla kaydedildi:", response.data);
+      
+      setBos_koltuk_sayisi(0);
+      setBaslangic_noktasi("");
+      setBitis_noktasi("");
+      setTarih("");
+      setSaat("");
+      setHayvan_durumu("");
+      setSigara_durumu("");
+      setUcret(0);
+
+      setKaydetmeDurumu(true);
+    } catch (error) {
+      console.error("Yolculuk kaydedilirken hata oluştu:", error);
+      setKaydetmeDurumu(false);
+    }
+  };
+
+  const convertToBoolean = (value) => {
+    return value === "evet" ? true : false;
+  };
+
   return (
     <div>
       <Navbar />
       <Box>
         <Box
           sx={{
-            height: 200,
+            height: 100,
             marginTop: 10,
           }}
         >
@@ -46,7 +99,11 @@ export default function YolculukYayınla() {
             >
               Kişi Sayısı
             </Typography>
-            <input className="kisiSayiInput" type="number" min="0" max="4" />
+            <input
+              className="Input"
+              type="number"
+              onChange={(e) => setBos_koltuk_sayisi(e.target.value)}
+            />
           </Box>
 
           <Box
@@ -57,19 +114,26 @@ export default function YolculukYayınla() {
               display: "flex",
             }}
           >
-            <FlightTakeoffIcon sx={{ marginRight: 1, fontSize: 30, marginTop: 2 }} />
+            <FlightTakeoffIcon
+              sx={{ marginRight: 1, fontSize: 30, marginTop: 2 }}
+            />
             <Typography
               variant="body1"
               sx={{ fontSize: 20, marginRight: 2, marginTop: 2 }}
             >
               Kalkış Yeri
             </Typography>
-            <select className="SeyahatInput" id="sehirler" name="sehirler">
+            <select
+              className="Input"
+              id="sehirler"
+              name="sehirler"
+              onChange={(e) => setBaslangic_noktasi(e.target.value)}
+            >
               <option value="baslangic" disabled selected>
                 Kalkış Yeri Seçiniz
               </option>
-              <option value="ankara">Ankara</option>
-              <option value="zonguldak">Zonguldak</option>
+              <option value="Ankara">Ankara</option>
+              <option value="Zonguldak">Zonguldak</option>
             </select>
           </Box>
           <Box
@@ -80,22 +144,28 @@ export default function YolculukYayınla() {
               display: "flex",
             }}
           >
-            <FlightLandIcon sx={{ marginRight: 1, fontSize: 30, marginTop: 2 }} />
+            <FlightLandIcon
+              sx={{ marginRight: 1, fontSize: 30, marginTop: 2 }}
+            />
             <Typography
               variant="body1"
               sx={{ fontSize: 20, marginRight: 2, marginTop: 2 }}
             >
               Varış Yeri
             </Typography>
-            <select className="SeyahatInput" id="sehirler" name="sehirler">
+            <select
+              className="Input"
+              id="sehirler"
+              name="sehirler"
+              onChange={(e) => setBitis_noktasi(e.target.value)}
+            >
               <option value="baslangic" disabled selected>
                 Varış Yeri Şeçiniz
               </option>
-              <option value="ankara">Ankara</option>
-              <option value="zonguldak">Zonguldak</option>
+              <option value="Ankara">Ankara</option>
+              <option value="Zonguldak">Zonguldak</option>
             </select>
           </Box>
-
           <Box
             sx={{
               textAlign: "center",
@@ -104,7 +174,7 @@ export default function YolculukYayınla() {
               display: "flex",
             }}
           >
-            <Tarih />
+            <Tarih setTarih={setTarih} />
           </Box>
           <Box
             sx={{
@@ -124,7 +194,7 @@ export default function YolculukYayınla() {
             >
               Kalkış Saati
             </Typography>
-            <Saat />
+            <Saat setSaat={setSaat} />
           </Box>
 
           <Box
@@ -135,7 +205,101 @@ export default function YolculukYayınla() {
               display: "flex",
             }}
           >
-            <button className="yayinla-btn">Kaydet</button>
+            <FaCat className="icon" />
+            <Typography
+              variant="body1"
+              sx={{ fontSize: 20, marginRight: 2, marginTop: 2 }}
+            >
+              Hayvan İzni Var Mı?
+            </Typography>
+            <select
+              className="Input"
+              id="hayvanlar"
+              name="hayvanlar"
+              onChange={(e) => setHayvan_durumu(e.target.value)}
+            >
+              <option value="baslangic" disabled selected>
+                Seçiniz
+              </option>
+              <option value="evet">Evet</option>
+              <option value="hayır">Hayır</option>
+            </select>
+          </Box>
+
+          <Box
+            sx={{
+              textAlign: "center",
+              justifyContent: "center",
+              marginTop: 5,
+              display: "flex",
+            }}
+          >
+            <MdOutlineSmokeFree className="icon" />
+            <Typography
+              variant="body1"
+              sx={{ fontSize: 20, marginRight: 2, marginTop: 2 }}
+            >
+              Sigara İzni Var Mı?
+            </Typography>
+            <select
+              className="Input"
+              id="sigara"
+              name="sigara"
+              onChange={(e) => setSigara_durumu(e.target.value)}
+            >
+              <option value="baslangic" disabled selected>
+                Seçiniz
+              </option>
+              <option value="evet">Evet</option>
+              <option value="hayır">Hayır</option>
+            </select>
+          </Box>
+
+          <Box
+            sx={{
+              textAlign: "center",
+              justifyContent: "center",
+              marginTop: 5,
+              display: "flex",
+            }}
+          >
+            <GiTakeMyMoney className="icon" />
+            <Typography
+              variant="body1"
+              sx={{ fontSize: 20, marginRight: 2, marginTop: 2 }}
+            >
+              Ücret
+            </Typography>
+            <div style={{ position: "relative" }}>
+              <input
+                className="Input"
+                type="number"
+                onChange={(e) => setUcret(e.target.value)}
+              />
+              <span
+                style={{
+                  position: "absolute",
+                  right: "45px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  fontSize: "30px",
+                }}
+              >
+                ₺
+              </span>
+            </div>
+          </Box>
+
+          <Box
+            sx={{
+              textAlign: "center",
+              justifyContent: "center",
+              display: "flex",
+            }}
+          >
+            <button className="yayinla-btn" onClick={handleKaydetClick}>
+              Kaydet
+            </button>
           </Box>
         </Box>
       </Box>

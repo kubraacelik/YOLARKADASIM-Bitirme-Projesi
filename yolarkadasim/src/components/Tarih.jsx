@@ -20,17 +20,17 @@ export const Tarih = () => {
   };
 
   return (
-    <Stack>
+    <Stack sx={{ border: '3px solid black', borderRadius: '20px', padding: '10px'}}>
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="tr">
         <StaticDatePicker
           sx={{
             ".css-1hbyad5-MuiTypography-root": {
               visibility: "hidden",
-              display: "none",
+              display: "none"
             },
             ".css-knqc4i-MuiDialogActions-root": {
               visibility: "hidden",
-              display: "none",
+              display: "none"
             },
           }}
           onChange={handleDateChange}

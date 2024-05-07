@@ -15,7 +15,7 @@ export const Saat = () => {
   const currentMinute = now.minute();
 
   // Minimum seçilebilir saati ayarlıyor
-  const minTime = dayjs().set("hour", currentHour).set("minute", currentMinute);
+  // const minTime = dayjs().set("hour", currentHour).set("minute", currentMinute);
 
   return (
     <Stack>
@@ -49,7 +49,7 @@ export const Saat = () => {
           ampm={false}
           value={value}
           onChange={(newValue) => setValue(newValue)}
-          minTime={minTime}
+          // minTime={minTime}
         />
       </LocalizationProvider>
     </Stack>

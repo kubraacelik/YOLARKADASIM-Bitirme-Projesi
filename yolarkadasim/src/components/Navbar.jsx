@@ -15,6 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import logo from "../assets/LOGO NAVBAR.png";
 import { useNavigate } from "react-router-dom";
+import { FaCirclePlus } from "react-icons/fa6";
 
 export default function Navbar() {
   //menünün açık veya kapalı olduğunu takip eder.
@@ -48,6 +49,15 @@ export default function Navbar() {
 
           <Box sx={{ flexGrow: 1 }} />
           <Box>
+          <IconButton size="medium" color="inherit">
+              <FaCirclePlus style={{ color: "#EB7310", fontSize: 28 }} />
+              <Button
+                onClick={() => navigate("/yolculukYayinla")}
+                sx={{ color: "#EB7310", fontSize: 18, fontWeight: 600 }}
+              >
+                YOLCULUK YAYINLA
+              </Button>
+            </IconButton>
             <IconButton size="medium" color="inherit">
               <IoSearch style={{ color: "#EB7310", fontSize: 28 }} />
               <Button
@@ -60,12 +70,6 @@ export default function Navbar() {
             <IconButton size="medium" color="inherit" onClick={handleClick}>
               <IoPerson style={{ color: "#EB7310", fontSize: 28 }} />
               <MdKeyboardArrowDown style={{ cursor: "pointer", color: "#EB7310" }} />
-            </IconButton>
-            <IconButton size="medium" color="inherit">
-              <MdLightMode style={{ color: "#EB7310", fontSize: 28 }} />
-            </IconButton>
-            <IconButton size="medium" color="inherit">
-              <MdModeNight style={{ color: "#EB7310", fontSize: 28 }} />
             </IconButton>
           </Box>
           <Menu
