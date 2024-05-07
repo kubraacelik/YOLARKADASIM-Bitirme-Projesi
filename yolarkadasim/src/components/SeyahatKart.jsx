@@ -28,6 +28,19 @@ export const SeyahatKart = () => {
     bos_koltuk_sayisi: bosKoltukSayisi
   });
 
+  const handleSearch = () => {
+    setAramaKriterleri({
+      baslangic_noktasi: baslangicNoktasi,
+      bitis_noktasi: bitisNoktasi,
+      tarih: tarih,
+      bos_koltuk_sayisi: parseInt(bosKoltukSayisi) // parseInt ile dönüştür
+    });
+  };
+
+  const handleButtonClick = () => {
+    handleSearch(); // Kullanıcının belirlediği kriterlere göre arama yap
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -50,53 +63,9 @@ export const SeyahatKart = () => {
   const handleClose = () => {
     setOpen(null);
   };
-
-  const handleSearch = () => {
-    setAramaKriterleri({
-      baslangic_noktasi: baslangicNoktasi,
-      bitis_noktasi: bitisNoktasi,
-      tarih: tarih,
-      bos_koltuk_sayisi: parseInt(bosKoltukSayisi) // parseInt ile dönüştür
-    });
-  };
   
   return (
     <div className="seyahat">
-      <div className="arama-formu">
-        <label>
-          Başlangıç Noktası:
-          <input
-            type="text"
-            value={baslangicNoktasi}
-            onChange={(e) => setBaslangicNoktasi(e.target.value)}
-          />
-        </label>
-        <label>
-          Bitiş Noktası:
-          <input
-            type="text"
-            value={bitisNoktasi}
-            onChange={(e) => setBitisNoktasi(e.target.value)}
-          />
-        </label>
-        <label>
-          Tarih:
-          <input
-            type="date"
-            value={tarih}
-            onChange={(e) => setTarih(e.target.value)}
-          />
-        </label>
-        <label>
-          Boş Koltuk Sayısı:
-          <input
-            type="number"
-            value={bosKoltukSayisi}
-            onChange={(e) => setBosKoltukSayisi(e.target.value)}
-          />
-        </label>
-        <button onClick={handleSearch}>Ara</button>
-      </div>
       {seyahatler.map((seyahat, index) => (
         <button key={index} className="open-kart" onClick={() => handleClickOpen(index)}>
           <div className="kart">
