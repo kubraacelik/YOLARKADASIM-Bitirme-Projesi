@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Box, Typography } from "@mui/material";
@@ -13,7 +13,6 @@ import { FaCat } from "react-icons/fa6";
 import { MdOutlineSmokeFree } from "react-icons/md";
 import { GiTakeMyMoney } from "react-icons/gi";
 import axios from "axios";
-import { useState } from "react";
 
 export default function YolculukYayınla() {
   const [bos_koltuk_sayisi, setBos_koltuk_sayisi] = useState(0);
@@ -26,11 +25,26 @@ export default function YolculukYayınla() {
   const [ucret, setUcret] = useState(0);
   const [kaydetmeDurumu, setKaydetmeDurumu] = useState(null);
 
+  // Tarih bileşeninden seçilen tarihi güncellemek için fonksiyon
+  const handleTarihChange = (selectedDate) => {
+    setTarih(selectedDate); // Ana bileşenedeki tarih state'ini güncelle
+  };
+
+  // Saat bileşeninden seçilen saati güncellemek için fonksiyon
+  const handleSaatChange = (selectedTime) => {
+    setSaat(selectedTime); // Ana bileşenedeki saat state'ini güncelle
+  };
+
+  const resetDateTime = () => {
+    setTarih("");
+    setSaat("");
+  };
+
   const handleKaydetClick = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/seyahatlar",
+        "http://localhost:8080/api/seyahatler",
         {
           bos_koltuk_sayisi,
           baslangic_noktasi,
@@ -43,16 +57,15 @@ export default function YolculukYayınla() {
         }
       );
       console.log("Yolculuk başarıyla kaydedildi:", response.data);
-      
+
+      resetDateTime();
+
       setBos_koltuk_sayisi(0);
       setBaslangic_noktasi("");
       setBitis_noktasi("");
-      setTarih("");
-      setSaat("");
       setHayvan_durumu("");
       setSigara_durumu("");
       setUcret(0);
-
       setKaydetmeDurumu(true);
     } catch (error) {
       console.error("Yolculuk kaydedilirken hata oluştu:", error);
@@ -100,6 +113,7 @@ export default function YolculukYayınla() {
               Kişi Sayısı
             </Typography>
             <input
+              value={bos_koltuk_sayisi}
               className="Input"
               type="number"
               onChange={(e) => setBos_koltuk_sayisi(e.target.value)}
@@ -127,9 +141,10 @@ export default function YolculukYayınla() {
               className="Input"
               id="sehirler"
               name="sehirler"
+              value={baslangic_noktasi}
               onChange={(e) => setBaslangic_noktasi(e.target.value)}
             >
-              <option value="baslangic" disabled selected>
+              <option value="" disabled>
                 Kalkış Yeri Seçiniz
               </option>
               <option value="Ankara">Ankara</option>
@@ -157,9 +172,10 @@ export default function YolculukYayınla() {
               className="Input"
               id="sehirler"
               name="sehirler"
+              value={bitis_noktasi}
               onChange={(e) => setBitis_noktasi(e.target.value)}
             >
-              <option value="baslangic" disabled selected>
+              <option value="" disabled>
                 Varış Yeri Şeçiniz
               </option>
               <option value="Ankara">Ankara</option>
@@ -174,7 +190,8 @@ export default function YolculukYayınla() {
               display: "flex",
             }}
           >
-            <Tarih setTarih={setTarih} />
+            <Tarih handleTarihChange={handleTarihChange} />
+
           </Box>
           <Box
             sx={{
@@ -194,7 +211,7 @@ export default function YolculukYayınla() {
             >
               Kalkış Saati
             </Typography>
-            <Saat setSaat={setSaat} />
+            <Saat handleSaatChange={handleSaatChange} />
           </Box>
 
           <Box
@@ -216,9 +233,10 @@ export default function YolculukYayınla() {
               className="Input"
               id="hayvanlar"
               name="hayvanlar"
+              value={hayvan_durumu}
               onChange={(e) => setHayvan_durumu(e.target.value)}
             >
-              <option value="baslangic" disabled selected>
+              <option value="" disabled>
                 Seçiniz
               </option>
               <option value="evet">Evet</option>
@@ -245,9 +263,10 @@ export default function YolculukYayınla() {
               className="Input"
               id="sigara"
               name="sigara"
+              value={sigara_durumu}
               onChange={(e) => setSigara_durumu(e.target.value)}
             >
-              <option value="baslangic" disabled selected>
+              <option value="" disabled>
                 Seçiniz
               </option>
               <option value="evet">Evet</option>
@@ -274,6 +293,7 @@ export default function YolculukYayınla() {
               <input
                 className="Input"
                 type="number"
+                value={ucret}
                 onChange={(e) => setUcret(e.target.value)}
               />
               <span

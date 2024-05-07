@@ -12,8 +12,8 @@ export const YolculukGörüntülemeAra2 = ({ degistirStil }) => {
               <option value="baslangic" disabled selected>
                 Kalkış Yeri Seçiniz
               </option>
-              <option value="ankara">Ankara</option>
-              <option value="zonguldak">Zonguldak</option>
+              <option value="Ankara">Ankara</option>
+              <option value="Zonguldak">Zonguldak</option>
             </select>
           </div>
           <hr className="dikey-çizgi2" />
@@ -23,8 +23,8 @@ export const YolculukGörüntülemeAra2 = ({ degistirStil }) => {
               <option value="baslangic" disabled selected>
                 Varış Yeri Seçiniz
               </option>
-              <option value="ankara">Ankara</option>
-              <option value="zonguldak">Zonguldak</option>
+              <option value="Ankara">Ankara</option>
+              <option value="Zonguldak">Zonguldak</option>
             </select>
           </div>
           <hr className="dikey-çizgi2" />

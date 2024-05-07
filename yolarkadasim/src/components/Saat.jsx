@@ -1,21 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Stack } from "@mui/material";
-import dayjs from "dayjs";
 import "dayjs/locale/tr";
 import "../styles/YolculukYayınla.css";
 
-export const Saat = () => {
-  const [value, setValue] = useState(null);
+export const Saat = ({ handleSaatChange }) => {
 
-  // Şimdiki Saati alıyor
-  const now = dayjs();
-  const currentHour = now.hour();
-  const currentMinute = now.minute();
+  function formatTime(date) {
+    const hour = date.hour();
+    const minute = date.minute();
+    return `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
+  }
 
-  // Minimum seçilebilir saati ayarlıyor
-  // const minTime = dayjs().set("hour", currentHour).set("minute", currentMinute);
+  const handleTimeChange = (time) => {
+    const lastTime = formatTime(time);
+    console.log(lastTime);
+  
+    // Seçilen saati ana bileşene iletmek için props fonksiyonunu çağır
+    handleSaatChange(lastTime);
+  };
+  
 
   return (
     <Stack>
@@ -47,9 +52,7 @@ export const Saat = () => {
           }}
           label="Kalkış Saatinizi Şeçiniz"
           ampm={false}
-          value={value}
-          onChange={(newValue) => setValue(newValue)}
-          // minTime={minTime}
+          onChange={handleTimeChange}
         />
       </LocalizationProvider>
     </Stack>

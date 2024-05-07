@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/SeyahatKart.css";
 import avatar from "../assets/avatar.jpg";
+import axios from "axios";
 import {
   Timeline,
   TimelineItem,
@@ -8,13 +9,39 @@ import {
   TimelineConnector,
   TimelineContent,
   TimelineDot,
-  TimelineOppositeContent,
 } from "@mui/lab";
 import Avatar from "@mui/material/Avatar";
 import { SeyahatKartDialog } from "./SeyahatKartDialog";
 
 export const SeyahatKart = () => {
+  const [seyahatler, setSeyahatler] = useState([]);
   const [open, setOpen] = useState(null);
+  const [baslangicNoktasi, setBaslangicNoktasi] = useState('');
+  const [bitisNoktasi, setBitisNoktasi] = useState('');
+  const [tarih, setTarih] = useState('');
+  const [bosKoltukSayisi, setBosKoltukSayisi] = useState('');
+
+  const [aramaKriterleri, setAramaKriterleri] = useState({
+    baslangic_noktasi: baslangicNoktasi,
+    bitis_noktasi: bitisNoktasi,
+    tarih: tarih,
+    bos_koltuk_sayisi: bosKoltukSayisi
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/seyahatler/arama", {
+          params: aramaKriterleri 
+        });
+        setSeyahatler(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Veriler getirilirken hata oluştu:", error);
+      }
+    };
+    fetchData();
+  }, [aramaKriterleri]); 
 
   const handleClickOpen = (index) => {
     setOpen(index);
@@ -23,82 +50,88 @@ export const SeyahatKart = () => {
   const handleClose = () => {
     setOpen(null);
   };
+
+  const handleSearch = () => {
+    setAramaKriterleri({
+      baslangic_noktasi: baslangicNoktasi,
+      bitis_noktasi: bitisNoktasi,
+      tarih: tarih,
+      bos_koltuk_sayisi: parseInt(bosKoltukSayisi) // parseInt ile dönüştür
+    });
+  };
+  
   return (
     <div className="seyahat">
-      <button className="open-kart" onClick={() => handleClickOpen("avatar1")}>
-        <div className="kart">
-          <div className="kart-icerik">
-            <Timeline sx={{ width: "340px", marginTop: "20px" }}>
-              <TimelineItem>
-                <TimelineOppositeContent>Kalkış 09:30</TimelineOppositeContent>
-                <TimelineSeparator>
-                  <TimelineDot />
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>Zonguldak</TimelineContent>
-              </TimelineItem>
-              <TimelineItem>
-                <TimelineSeparator>
-                  <TimelineDot />
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent color="text.secondary">Tahimini 3 Saat</TimelineContent>
-              </TimelineItem>
-              <TimelineItem>
-                <TimelineOppositeContent>Varış 13:30</TimelineOppositeContent>
-                <TimelineSeparator>
-                  <TimelineDot />
-                </TimelineSeparator>
-                <TimelineContent>Ankara</TimelineContent>
-              </TimelineItem>
-            </Timeline>
-            <div className="kart-icerik-avatar">
-              <Avatar src={avatar} sx={{ width: 56, height: 56, marginLeft: "50px" }} />
-              <p>Resul Gencer</p>
+      <div className="arama-formu">
+        <label>
+          Başlangıç Noktası:
+          <input
+            type="text"
+            value={baslangicNoktasi}
+            onChange={(e) => setBaslangicNoktasi(e.target.value)}
+          />
+        </label>
+        <label>
+          Bitiş Noktası:
+          <input
+            type="text"
+            value={bitisNoktasi}
+            onChange={(e) => setBitisNoktasi(e.target.value)}
+          />
+        </label>
+        <label>
+          Tarih:
+          <input
+            type="date"
+            value={tarih}
+            onChange={(e) => setTarih(e.target.value)}
+          />
+        </label>
+        <label>
+          Boş Koltuk Sayısı:
+          <input
+            type="number"
+            value={bosKoltukSayisi}
+            onChange={(e) => setBosKoltukSayisi(e.target.value)}
+          />
+        </label>
+        <button onClick={handleSearch}>Ara</button>
+      </div>
+      {seyahatler.map((seyahat, index) => (
+        <button key={index} className="open-kart" onClick={() => handleClickOpen(index)}>
+          <div className="kart">
+            <div className="kart-icerik">
+              <Timeline sx={{ width: "340px", marginTop: "20px" }}>
+                <TimelineItem>
+                  <TimelineSeparator>
+                    <TimelineDot />
+                    <TimelineConnector />
+                  </TimelineSeparator>
+                  <TimelineContent>{seyahat.baslangic_noktasi}</TimelineContent>
+                </TimelineItem>
+                <TimelineItem>
+                  <TimelineSeparator>
+                    <TimelineDot />
+                  </TimelineSeparator>
+                  <TimelineContent>{seyahat.bitis_noktasi}</TimelineContent>
+                </TimelineItem>
+                <TimelineItem>
+                  <TimelineSeparator>
+                    <TimelineDot />
+                  </TimelineSeparator>
+                  <TimelineContent>{seyahat.tarih}</TimelineContent>
+                </TimelineItem>
+                <TimelineItem>
+                  <TimelineSeparator>
+                    <TimelineDot />
+                  </TimelineSeparator>
+                  <TimelineContent>{seyahat.bos_koltuk_sayisi}</TimelineContent>
+                </TimelineItem>
+              </Timeline>
             </div>
           </div>
-          <div className="kart-ücret">
-            <p>150 TL</p>
-          </div>
-        </div>
-      </button>
-      <button className="open-kart" onClick={() => handleClickOpen("avatar2")}>
-        <div className="kart">
-          <div className="kart-icerik">
-            <Timeline sx={{ width: "340px", marginTop: "20px" }}>
-              <TimelineItem>
-                <TimelineOppositeContent>Kalkış 09:30</TimelineOppositeContent>
-                <TimelineSeparator>
-                  <TimelineDot />
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>Ankara</TimelineContent>
-              </TimelineItem>
-              <TimelineItem>
-                <TimelineSeparator>
-                  <TimelineDot />
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent color="text.secondary">Tahimini 3 Saat</TimelineContent>
-              </TimelineItem>
-              <TimelineItem>
-                <TimelineOppositeContent>Varış 13:30</TimelineOppositeContent>
-                <TimelineSeparator>
-                  <TimelineDot />
-                </TimelineSeparator>
-                <TimelineContent>Zonguldak</TimelineContent>
-              </TimelineItem>
-            </Timeline>
-            <div className="kart-icerik-avatar">
-              <Avatar src={avatar} sx={{ width: 56, height: 56, marginLeft: "50px" }} />
-              <p className>Yusuf Gencer</p>
-            </div>
-          </div>
-          <div className="kart-ücret">
-            <p>250 TL</p>
-          </div>
-        </div>
-      </button>
+        </button>
+      ))}
       <SeyahatKartDialog open={open} handleClose={handleClose} />
     </div>
   );
