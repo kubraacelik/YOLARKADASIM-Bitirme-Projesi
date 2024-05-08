@@ -2,13 +2,13 @@ import React, {useEffect, useState} from "react";
 import "../styles/YolculukGörüntülemeAra2.css";
 import axios from "axios";
 
-export const YolculukGörüntülemeAra2 = ({ degistirStil }) => {
+export const YolculukGörüntülemeAra2 = () => {
 
   const [baslangicNoktasi, setBaslangicNoktasi] = useState('');
   const [bitisNoktasi, setBitisNoktasi] = useState('');
   const [tarih, setTarih] = useState('');
   const [bosKoltukSayisi, setBosKoltukSayisi] = useState('');
-
+  const [seyahatler, setSeyahatler] = useState("")
   const [aramaKriterleri, setAramaKriterleri] = useState({});
 
   const handleSearch = () => {
