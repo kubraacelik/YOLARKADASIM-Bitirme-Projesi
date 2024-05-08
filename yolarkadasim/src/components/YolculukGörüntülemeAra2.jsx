@@ -15,14 +15,17 @@ export const YolculukGörüntülemeAra2 = () => {
     }
 
     try {
-      const response = await axios.get("http://localhost:8080/api/seyahatler/arama", {
-        params: {
-          baslangic_noktasi: baslangicNoktasi,
-          bitis_noktasi: bitisNoktasi,
-          tarih: tarih,
-          bos_koltuk_sayisi: bosKoltukSayisi
+      const response = await axios.get(
+        "http://localhost:8080/api/seyahatler/arama",
+        {
+          params: {
+            baslangicNoktasi: baslangicNoktasi,
+            bitisNoktasi: bitisNoktasi,
+            tarih: tarih,
+            bosKoltukSayisi: bosKoltukSayisi,
+          },
         }
-      });
+      );
       console.log(response.data);
     } catch (error) {
       console.error("Veriler getirilirken hata oluştu:", error);

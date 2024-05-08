@@ -17,8 +17,8 @@ function YolculukAra() {
           </div>
           <div className="tanım">
             <p>
-              Yolculuk Maliyetlerini Düşüren Ekonomik Platform: Seyahatlerini Paylaş,
-              Masrafları Azalt!
+              Yolculuk Maliyetlerini Düşüren Ekonomik Platform: Seyahatlerini
+              Paylaş, Masrafları Azalt!
             </p>
           </div>
         </div>
@@ -31,8 +31,8 @@ function YolculukAra() {
               <option value="baslangic" disabled selected>
                 Kalkış Yeri Seçiniz
               </option>
-              <option value="ankara">Ankara</option>
-              <option value="zonguldak">Zonguldak</option>
+              <option value="Ankara">Ankara</option>
+              <option value="Zonguldak">Zonguldak</option>
             </select>
           </div>
           <hr className="dikey-çizgi" />
@@ -42,8 +42,8 @@ function YolculukAra() {
               <option value="baslangic" disabled selected>
                 Varış Yeri Seçiniz
               </option>
-              <option value="ankara">Ankara</option>
-              <option value="zonguldak">Zonguldak</option>
+              <option value="Ankara">Ankara</option>
+              <option value="Zonguldak">Zonguldak</option>
             </select>
           </div>
           <hr className="dikey-çizgi" />
@@ -58,7 +58,10 @@ function YolculukAra() {
           </div>
         </div>
         <div>
-          <button onClick={() => navigate("/yolculukGörüntüle")} className="arama-btn">
+          <button
+            onClick={() => navigate("/yolculukGörüntüle")}
+            className="arama-btn"
+          >
             ARA
           </button>
         </div>

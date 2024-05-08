@@ -8,20 +8,11 @@ export const SeyahatKart = () => {
   const [open, setOpen] = useState(null);
 
   const [aramaKriterleri, setAramaKriterleri] = useState({
-    baslangic_noktasi: "",
-    bitis_noktasi: "",
+    baslangicNoktasi: "",
+    bitisNoktasi: "",
     tarih: "",
-    bos_koltuk_sayisi: "",
+    bosKoltukSayisi: "",
   });
-
-  const formatDate = (date) => {
-    const day = new Date(date).getDate();
-    const month = new Date(date).getMonth() + 1;
-    const year = new Date(date).getFullYear();
-    return `${day.toString().padStart(2, "0")}-${month
-      .toString()
-      .padStart(2, "0")}-${year}`;
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,8 +24,7 @@ export const SeyahatKart = () => {
           }
         );
         const seyahatler = response.data.map((seyahat) => ({
-          ...seyahat,
-          tarih: formatDate(seyahat.tarih),
+          ...seyahat
         }));
         setSeyahatler(seyahatler);
         console.log(seyahatler);
@@ -44,10 +34,10 @@ export const SeyahatKart = () => {
     };
 
     if (
-      aramaKriterleri.baslangic_noktasi &&
-      aramaKriterleri.bitis_noktasi &&
+      aramaKriterleri.baslangicNoktasi &&
+      aramaKriterleri.bitisNoktasi &&
       aramaKriterleri.tarih &&
-      aramaKriterleri.bos_koltuk_sayisi
+      aramaKriterleri.bosKoltukSayisi
     ) {
       fetchData();
     }
@@ -62,16 +52,22 @@ export const SeyahatKart = () => {
   };
 
   return (
-    <div className="seyahat">
-      {seyahatler.map((seyahat, index) => (
-        <div key={index} className="kart">
-          <p>Kalkış Noktası: {seyahat.baslangic_noktasi}</p>
-          <p>Varış Noktası: {seyahat.bitis_noktasi}</p>
-          <p>Tarih: {seyahat.tarih}</p>
-          <p>Boş Koltuk Sayısı: {seyahat.bos_koltuk_sayisi}</p>
+    <div>
+      <div>Yolculuklar</div>
+
+      {seyahatler && (
+        <div className="seyahat">
+          {seyahatler.map((seyahat, index) => (
+            <div key={index} className="kart">
+              <p>Kalkış Noktası: {seyahat.baslangicNoktasi}</p>
+              <p>Varış Noktası: {seyahat.bitisNoktasi}</p>
+              <p>Tarih: {seyahat.tarih}</p>
+              <p>Boş Koltuk Sayısı: {seyahat.bosKoltukSayisi}</p>
+            </div>
+          ))}
+          <SeyahatKartDialog open={open} handleClose={handleClose} />
         </div>
-      ))}
-      <SeyahatKartDialog open={open} handleClose={handleClose} />
+      )}
     </div>
   );
 };

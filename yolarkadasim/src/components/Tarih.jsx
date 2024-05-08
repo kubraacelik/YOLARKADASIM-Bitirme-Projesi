@@ -10,7 +10,7 @@ export const Tarih = ({ handleTarihChange }) => {
     const day = date.date()+1;
     const month = date.month()+1;
     const year = date.year();
-    return `${day.toString().padStart(2, "0")}-${month.toString().padStart(2, "0")}-${year}`;
+    return `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
   }
   
   const handleDateChange = (date) => {
