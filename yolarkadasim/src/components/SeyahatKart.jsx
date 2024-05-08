@@ -1,60 +1,57 @@
 import React, { useState, useEffect } from "react";
-import "../styles/SeyahatKart.css";
-import avatar from "../assets/avatar.jpg";
 import axios from "axios";
-import {
-  Timeline,
-  TimelineItem,
-  TimelineSeparator,
-  TimelineConnector,
-  TimelineContent,
-  TimelineDot,
-} from "@mui/lab";
-import Avatar from "@mui/material/Avatar";
+import "../styles/SeyahatKart.css";
 import { SeyahatKartDialog } from "./SeyahatKartDialog";
 
 export const SeyahatKart = () => {
   const [seyahatler, setSeyahatler] = useState([]);
   const [open, setOpen] = useState(null);
-  const [baslangicNoktasi, setBaslangicNoktasi] = useState('');
-  const [bitisNoktasi, setBitisNoktasi] = useState('');
-  const [tarih, setTarih] = useState('');
-  const [bosKoltukSayisi, setBosKoltukSayisi] = useState('');
 
   const [aramaKriterleri, setAramaKriterleri] = useState({
-    baslangic_noktasi: baslangicNoktasi,
-    bitis_noktasi: bitisNoktasi,
-    tarih: tarih,
-    bos_koltuk_sayisi: bosKoltukSayisi
+    baslangic_noktasi: "",
+    bitis_noktasi: "",
+    tarih: "",
+    bos_koltuk_sayisi: "",
   });
 
-  const handleSearch = () => {
-    setAramaKriterleri({
-      baslangic_noktasi: baslangicNoktasi,
-      bitis_noktasi: bitisNoktasi,
-      tarih: tarih,
-      bos_koltuk_sayisi: parseInt(bosKoltukSayisi) // parseInt ile dönüştür
-    });
-  };
-
-  const handleButtonClick = () => {
-    handleSearch(); // Kullanıcının belirlediği kriterlere göre arama yap
+  const formatDate = (date) => {
+    const day = new Date(date).getDate();
+    const month = new Date(date).getMonth() + 1;
+    const year = new Date(date).getFullYear();
+    return `${day.toString().padStart(2, "0")}-${month
+      .toString()
+      .padStart(2, "0")}-${year}`;
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/seyahatler/arama", {
-          params: aramaKriterleri 
-        });
-        setSeyahatler(response.data);
-        console.log(response.data);
+        const response = await axios.get(
+          "http://localhost:8080/api/seyahatler/arama",
+          {
+            params: aramaKriterleri,
+          }
+        );
+        const seyahatler = response.data.map((seyahat) => ({
+          ...seyahat,
+          tarih: formatDate(seyahat.tarih),
+        }));
+        setSeyahatler(seyahatler);
+        console.log(seyahatler);
       } catch (error) {
         console.error("Veriler getirilirken hata oluştu:", error);
       }
     };
-    fetchData();
-  }, [aramaKriterleri]); 
+
+    if (
+      aramaKriterleri.baslangic_noktasi &&
+      aramaKriterleri.bitis_noktasi &&
+      aramaKriterleri.tarih &&
+      aramaKriterleri.bos_koltuk_sayisi
+    ) {
+      fetchData();
+    }
+  }, [aramaKriterleri]);
 
   const handleClickOpen = (index) => {
     setOpen(index);
@@ -63,43 +60,16 @@ export const SeyahatKart = () => {
   const handleClose = () => {
     setOpen(null);
   };
-  
+
   return (
     <div className="seyahat">
       {seyahatler.map((seyahat, index) => (
-        <button key={index} className="open-kart" onClick={() => handleClickOpen(index)}>
-          <div className="kart">
-            <div className="kart-icerik">
-              <Timeline sx={{ width: "340px", marginTop: "20px" }}>
-                <TimelineItem>
-                  <TimelineSeparator>
-                    <TimelineDot />
-                    <TimelineConnector />
-                  </TimelineSeparator>
-                  <TimelineContent>{seyahat.baslangic_noktasi}</TimelineContent>
-                </TimelineItem>
-                <TimelineItem>
-                  <TimelineSeparator>
-                    <TimelineDot />
-                  </TimelineSeparator>
-                  <TimelineContent>{seyahat.bitis_noktasi}</TimelineContent>
-                </TimelineItem>
-                <TimelineItem>
-                  <TimelineSeparator>
-                    <TimelineDot />
-                  </TimelineSeparator>
-                  <TimelineContent>{seyahat.tarih}</TimelineContent>
-                </TimelineItem>
-                <TimelineItem>
-                  <TimelineSeparator>
-                    <TimelineDot />
-                  </TimelineSeparator>
-                  <TimelineContent>{seyahat.bos_koltuk_sayisi}</TimelineContent>
-                </TimelineItem>
-              </Timeline>
-            </div>
-          </div>
-        </button>
+        <div key={index} className="kart">
+          <p>Kalkış Noktası: {seyahat.baslangic_noktasi}</p>
+          <p>Varış Noktası: {seyahat.bitis_noktasi}</p>
+          <p>Tarih: {seyahat.tarih}</p>
+          <p>Boş Koltuk Sayısı: {seyahat.bos_koltuk_sayisi}</p>
+        </div>
       ))}
       <SeyahatKartDialog open={open} handleClose={handleClose} />
     </div>
