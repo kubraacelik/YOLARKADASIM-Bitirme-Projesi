@@ -35,10 +35,6 @@ export default function YolculukYayınla() {
     setSaat(selectedTime); // Ana bileşenedeki saat state'ini güncelle
   };
 
-  const resetDateTime = () => {
-    setTarih("");
-    setSaat("");
-  };
 
   const handleKaydetClick = async (e) => {
     e.preventDefault();
@@ -58,7 +54,6 @@ export default function YolculukYayınla() {
       );
       console.log("Yolculuk başarıyla kaydedildi:", response.data);
 
-      resetDateTime();
 
       setBosKoltukSayisi(0);
       setBaslangicNoktasi("");

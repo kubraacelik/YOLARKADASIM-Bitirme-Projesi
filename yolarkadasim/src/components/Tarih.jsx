@@ -7,13 +7,14 @@ import dayjs from "dayjs"; // dayjs kütüphanesini import edin
 export const Tarih = ({ handleTarihChange }) => {
   const [selectedDate, setSelectedDate] = useState(null);
 
-  // Tarihi doğru formata dönüştürmek için dayjs kütüphanesini kullanın
+  // Tarihi doğru formata dönüştürmek için dayjs kütüphanesini kullandık
   function formatDate(date) {
     return dayjs(date).format("YYYY-MM-DD");
   }
 
   const handleDateChange = (date) => {
     const formattedDate = formatDate(date);
+    console.log(formattedDate);
     setSelectedDate(date);
     handleTarihChange(formattedDate);
   };

@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/SeyahatKart.css";
 import { SeyahatKartDialog } from "./SeyahatKartDialog";
+import SürücüResim from "../assets/Add-user.jpg"
 
-export const SeyahatKart = () => {
-  const [seyahatler, setSeyahatler] = useState([]);
+export const SeyahatKart = ({ seyahatler }) => {
   const [open, setOpen] = useState(null);
-
   const [aramaKriterleri, setAramaKriterleri] = useState({
     baslangicNoktasi: "",
     bitisNoktasi: "",
@@ -24,7 +23,7 @@ export const SeyahatKart = () => {
           }
         );
         const seyahatler = response.data.map((seyahat) => ({
-          ...seyahat
+          ...seyahat,
         }));
         setSeyahatler(seyahatler);
         console.log(seyahatler);
@@ -53,19 +52,35 @@ export const SeyahatKart = () => {
 
   return (
     <div>
-      <div>Yolculuklar</div>
-
       {seyahatler && (
         <div className="seyahat">
           {seyahatler.map((seyahat, index) => (
             <div key={index} className="kart">
-              <p>Kalkış Noktası: {seyahat.baslangicNoktasi}</p>
-              <p>Varış Noktası: {seyahat.bitisNoktasi}</p>
-              <p>Tarih: {seyahat.tarih}</p>
-              <p>Boş Koltuk Sayısı: {seyahat.bosKoltukSayisi}</p>
+              <div className="kart-elemanlar">
+              <div className="kart-eleman">
+                <p className="kart-eleman-seçilen">Kalkış Noktası: </p>
+                <p className="kart-eleman-gelen">{seyahat.baslangicNoktasi}</p>
+              </div>
+              <div className="kart-eleman">
+                <p className="kart-eleman-seçilen">Varış Noktası: </p>
+                <p className="kart-eleman-gelen">{seyahat.bitisNoktasi}</p>
+              </div>
+              </div>
+              <div className="kart-elemanlar">
+              <div className="kart-eleman">
+                <p className="kart-eleman-seçilen">Tarih: </p>
+                <p className="kart-eleman-gelen">{seyahat.tarih}</p>
+              </div>
+              <div className="kart-eleman ayarla">
+                <p className="kart-eleman-seçilen ayarla">Boş Koltuk Sayısı: </p>
+                <p className="kart-eleman-gelen">{seyahat.bosKoltukSayisi}</p>
+              </div>
+              </div>
+              <div className="sürücü-resim">
+                <img src={SürücüResim} alt="" />
+              </div>
             </div>
           ))}
-          <SeyahatKartDialog open={open} handleClose={handleClose} />
         </div>
       )}
     </div>
