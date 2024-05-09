@@ -11,19 +11,19 @@
   display: flex;
   flex-direction: column;
   width: 40rem;
-  height: 20rem;
+  height: 25rem;
   border-radius: 4rem;
   box-shadow: 36px 48px 41px 12px rgba(0, 0, 0, 0.1),
     0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-.kart-elemanlar{
+.kart-elemanlar {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.kart-eleman{
+.kart-eleman {
   padding: 20px;
   display: flex;
   flex-direction: row;
@@ -31,28 +31,41 @@
   margin-top: 10px;
 }
 
-.ayarla{
-  margin-left: 34px;
+.kart-eleman2{
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  margin-right: 10px;
+  margin-top: 10px;
 }
 
-.kart-eleman-seçilen{
+
+.ayarla {
+  width: 53px;
+}
+
+.ayarla2{
+  width: 90px;
+}
+
+.kart-eleman-seçilen {
   font-size: 20px;
-  font-weight: 400;
   margin-right: 20px;
 }
 
-.kart-eleman-gelen{
+.kart-eleman-gelen {
   font-size: 20px;
   font-weight: 500;
   margin-right: 10px;
 }
 
-.sürücü-resim img{
+.sürücü-resim img {
   width: 70px;
-  margin-top: 70px;
+  margin-top: 20px;
   margin-left: 20px;
 }
 
-.kart-icerik {
-  width: 70%;
+.iletisim{
+  font-size: 25px;
+ margin-left: 238px;
 }

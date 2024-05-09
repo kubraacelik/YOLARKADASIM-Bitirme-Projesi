@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/SeyahatKart.css";
 import { SeyahatKartDialog } from "./SeyahatKartDialog";
-import SürücüResim from "../assets/Add-user.jpg"
+import SürücüResim from "../assets/Add-user.jpg";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const SeyahatKart = ({ seyahatler }) => {
   const [open, setOpen] = useState(null);
@@ -12,6 +14,7 @@ export const SeyahatKart = ({ seyahatler }) => {
     tarih: "",
     bosKoltukSayisi: "",
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,8 +23,13 @@ export const SeyahatKart = ({ seyahatler }) => {
           "http://localhost:8080/api/seyahatler/arama",
           {
             params: aramaKriterleri,
+            sigaraDurumu: sigaraDurumu,
+            hayvanDurumu: hayvanDurumu,
+            saat: saat,
+            ucret: ucret,
           }
         );
+        console.log(response.data);
         const seyahatler = response.data.map((seyahat) => ({
           ...seyahat,
         }));
@@ -57,27 +65,58 @@ export const SeyahatKart = ({ seyahatler }) => {
           {seyahatler.map((seyahat, index) => (
             <div key={index} className="kart">
               <div className="kart-elemanlar">
-              <div className="kart-eleman">
-                <p className="kart-eleman-seçilen">Kalkış Noktası: </p>
-                <p className="kart-eleman-gelen">{seyahat.baslangicNoktasi}</p>
-              </div>
-              <div className="kart-eleman">
-                <p className="kart-eleman-seçilen">Varış Noktası: </p>
-                <p className="kart-eleman-gelen">{seyahat.bitisNoktasi}</p>
-              </div>
+                <div className="kart-eleman">
+                  <p className="kart-eleman-seçilen">Kalkış Noktası: </p>
+                  <p className="kart-eleman-gelen ayarla2">
+                    {seyahat.baslangicNoktasi}
+                  </p>
+                </div>
+                <div style={{marginLeft:4}} className="kart-eleman2">
+                  <p className="kart-eleman-seçilen">Varış Noktası: </p>
+                  <p className="kart-eleman-gelen">{seyahat.bitisNoktasi}</p>
+                </div>
               </div>
               <div className="kart-elemanlar">
-              <div className="kart-eleman">
-                <p className="kart-eleman-seçilen">Tarih: </p>
-                <p className="kart-eleman-gelen">{seyahat.tarih}</p>
+                <div className="kart-eleman">
+                  <p className="kart-eleman-seçilen">Boş Koltuk Sayısı:</p>
+                  <p className="kart-eleman-gelen">{seyahat.bosKoltukSayisi}</p>
+                </div>
+                <div style={{marginLeft:63}} className="kart-eleman2">
+                  <p className="kart-eleman-seçilen">Tarih: </p>
+                  <p className="kart-eleman-gelen">{seyahat.tarih}</p>
+                </div>
               </div>
-              <div className="kart-eleman ayarla">
-                <p className="kart-eleman-seçilen ayarla">Boş Koltuk Sayısı: </p>
-                <p className="kart-eleman-gelen">{seyahat.bosKoltukSayisi}</p>
+              <div className="kart-elemanlar">
+                <div className="kart-eleman">
+                  <p className="kart-eleman-seçilen">Sigara Durumu: </p>
+                  <p className="kart-eleman-gelen ayarla">
+                    {seyahat.sigaraDurumu ? "Evet" : "Hayır"}
+                  </p>
+                </div>
+                <div style={{marginLeft:44}} className="kart-eleman2">
+                  <p className="kart-eleman-seçilen">Hayvan Durumu: </p>
+                  <p className="kart-eleman-gelen">
+                    {seyahat.hayvanDurumu ? "Evet" : "Hayır"}
+                  </p>
+                </div>
               </div>
+              <div className="kart-elemanlar">
+                <div className="kart-eleman">
+                  <p className="kart-eleman-seçilen">Saat: </p>
+                  <p className="kart-eleman-gelen">{seyahat.saat}</p>
+                </div>
+                <div style={{marginLeft:107}} className="kart-eleman2">
+                  <p className="kart-eleman-seçilen">Ücret: </p>
+                  <p className="kart-eleman-gelen">{seyahat.ucret}</p>
+                </div>
               </div>
+              <div className="kart-elemanlar">
               <div className="sürücü-resim">
                 <img src={SürücüResim} alt="" />
+              </div>
+              <div className="iletisim">
+                <Link to="/mesajlar">Sürücü İle İletişime Geç</Link>
+              </div>
               </div>
             </div>
           ))}

@@ -20,6 +20,8 @@ function App() {
         <Route path="/girisYap" element={<GirişYap />} />
         <Route path="/yolculukYayinla" element={<YolculukYayınla />} />
         <Route path="/yolculukGörüntüle" element={<YolculukGörüntüle />} />
+        <Route path="/mesajlar" element={<Mesaj />} />
+
         <Route path="/profilAyarlari" element={<Profil />}>
           <Route path="SürücüDetay" element={<SürücüDetay />} />
           <Route path="AraçDetay" element={<AraçDetay />} />
