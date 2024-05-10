@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Box, Typography } from "@mui/material";
@@ -13,6 +13,7 @@ import { FaCat } from "react-icons/fa6";
 import { MdOutlineSmokeFree } from "react-icons/md";
 import { GiTakeMyMoney } from "react-icons/gi";
 import axios from "axios";
+import Alert from "@mui/material/Alert";
 
 export default function YolculukYayınla() {
   const [bosKoltukSayisi, setBosKoltukSayisi] = useState(0);
@@ -25,6 +26,17 @@ export default function YolculukYayınla() {
   const [ucret, setUcret] = useState(0);
   const [kaydetmeDurumu, setKaydetmeDurumu] = useState(null);
 
+  //Alert 3sn sonra gitsin
+  useEffect(() => {
+    if (kaydetmeDurumu !== null) {
+      const timer = setTimeout(() => {
+        setKaydetmeDurumu(null);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [kaydetmeDurumu]);
+
   // Tarih bileşeninden seçilen tarihi güncellemek için fonksiyon
   const handleTarihChange = (selectedDate) => {
     setTarih(selectedDate); // Ana bileşenedeki tarih state'ini güncelle
@@ -35,9 +47,25 @@ export default function YolculukYayınla() {
     setSaat(selectedTime); // Ana bileşenedeki saat state'ini güncelle
   };
 
-
   const handleKaydetClick = async (e) => {
     e.preventDefault();
+
+    // Gerekli alanların dolu olup olmadığını kontrol et
+    if (
+      !bosKoltukSayisi ||
+      !baslangicNoktasi ||
+      !bitisNoktasi ||
+      !tarih ||
+      !saat ||
+      !hayvanDurumu ||
+      !sigaraDurumu ||
+      !ucret
+    ) {
+      // Eğer gerekli alanlardan biri boşsa hata mesajı göster
+      setKaydetmeDurumu(false);
+      return;
+    }
+
     try {
       const response = await axios.post(
         "http://localhost:8080/api/seyahatler",
@@ -53,7 +81,7 @@ export default function YolculukYayınla() {
         }
       );
       console.log("Yolculuk başarıyla kaydedildi:", response.data);
-
+      setKaydetmeDurumu(true);
 
       setBosKoltukSayisi(0);
       setBaslangicNoktasi("");
@@ -61,7 +89,6 @@ export default function YolculukYayınla() {
       setHayvanDurumu("");
       setSigaraDurumu("");
       setUcret(0);
-      setKaydetmeDurumu(true);
     } catch (error) {
       console.error("Yolculuk kaydedilirken hata oluştu:", error);
       setKaydetmeDurumu(false);
@@ -317,6 +344,36 @@ export default function YolculukYayınla() {
           </Box>
         </Box>
       </Box>
+      {kaydetmeDurumu === true && (
+        <div className="uyarıYazısı">
+          <Alert
+            sx={{
+              fontSize: 20,
+              backgroundColor: "lightgreen",
+              borderRadius: 20,
+              width: 700,
+            }}
+            severity="success"
+          >
+            Yolculuk Başarıyla Kaydedildi.
+          </Alert>
+        </div>
+      )}
+      {kaydetmeDurumu === false && (
+        <div className="uyarıYazısı">
+          <Alert
+            sx={{
+              fontSize: 20,
+              backgroundColor: "salmon",
+              borderRadius: 20,
+              width: 700,
+            }}
+            severity="error"
+          >
+            Lütfen Tüm Verileri Eksiksiz Giriniz!
+          </Alert>
+        </div>
+      )}
       <Footer />
     </div>
   );

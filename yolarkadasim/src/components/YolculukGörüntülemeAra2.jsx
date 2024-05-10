@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../styles/YolculukGörüntülemeAra2.css";
 import { SeyahatKart } from "./SeyahatKart";
+import { Alert } from "@mui/material";
 
 export const YolculukGörüntülemeAra2 = () => {
   const [baslangicNoktasi, setBaslangicNoktasi] = useState("");
   const [bitisNoktasi, setBitisNoktasi] = useState("");
   const [tarih, setTarih] = useState("");
-  const [bosKoltukSayisi, setBosKoltukSayisi] = useState(""); // ParseInt'i kaldırdık
+  const [bosKoltukSayisi, setBosKoltukSayisi] = useState(0); 
   const [seyahatler, setSeyahatler] = useState([]);
+  const [showAlert, setShowAlert] = useState(false); // Uyarı mesajı için state
 
   const handleSearch = async () => {
     if (!baslangicNoktasi || !bitisNoktasi || !tarih || !bosKoltukSayisi) {
@@ -28,7 +30,13 @@ export const YolculukGörüntülemeAra2 = () => {
           },
         }
       );
-      console.log(response.data);
+
+      if(response.data.length === 0) {
+        setShowAlert(true); // Veri bulunamazsa uyarı mesajını göster
+      } else {
+        setShowAlert(false);
+      }
+
       setSeyahatler(response.data); // Verileri state'e kaydet
     } catch (error) {
       console.error("Veriler getirilirken hata oluştu:", error);
@@ -99,8 +107,18 @@ export const YolculukGörüntülemeAra2 = () => {
           </button>
         </div>
       </div>
+      {/* Uyarı mesajı */}
+      {showAlert && (
+            <div className="uyarıMesajı">
+              <Alert
+                sx={{ fontSize: 20, backgroundColor: "salmon", borderRadius:20, width:900 }}
+                severity="error"
+              >
+                Bu Seçimlere Uyan Bir Seyahat Bulunamamaktadır!
+              </Alert>
+            </div>
+          )}
       <SeyahatKart seyahatler={seyahatler} />
     </div>
-    
   );
 };

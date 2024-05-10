@@ -6,10 +6,7 @@ import GirişYap from "./routes/GirişYap";
 import YolculukYayınla from "./routes/YolculukYayınla";
 import YolculukGörüntüle from "./routes/YolculukGörüntüle";
 import { Profil } from "./routes/Profil";
-import { SürücüDetay } from "./routes/SürücüDetay";
-import { AraçDetay } from "./routes/AraçDetay";
 import Mesaj from "./routes/Mesaj";
-import { Bildirimler } from "./routes/Bildirimler";
 
 function App() {
   return (
@@ -21,12 +18,7 @@ function App() {
         <Route path="/yolculukYayinla" element={<YolculukYayınla />} />
         <Route path="/yolculukGörüntüle" element={<YolculukGörüntüle />} />
         <Route path="/mesajlar" element={<Mesaj />} />
-
-        <Route path="/profilAyarlari" element={<Profil />}>
-          <Route path="SürücüDetay" element={<SürücüDetay />} />
-          <Route path="AraçDetay" element={<AraçDetay />} />
-          <Route path="Bildirimler" element={<Bildirimler />} />
-        </Route>
+        <Route path="/profilAyarlari" element={<Profil />} />
         <Route path="/mesaj" element={<Mesaj />} />
       </Routes>
     </div>

@@ -9,6 +9,11 @@
   height: 55px;
 }
 
+input:required {
+  border-color: red; /* Zorunlu alanları kırmızı ile işaretler */
+}
+
+
 .icon {
   margin-right: 4px;
   margin-top: 14px;
@@ -26,4 +31,11 @@
   font-size: 19px;
   font-weight: 600;
   cursor: pointer;
+}
+
+.uyarıYazısı{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
 }

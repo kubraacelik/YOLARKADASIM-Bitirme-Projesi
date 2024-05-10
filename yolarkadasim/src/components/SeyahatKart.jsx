@@ -50,7 +50,7 @@ export const SeyahatKart = ({ seyahatler }) => {
 
   return (
     <div>
-      <div>
+      {/* <div>
         {Object.values(aramaKriterleri).every(value => value === "") && (
           <div>
             <Alert
@@ -61,7 +61,7 @@ export const SeyahatKart = ({ seyahatler }) => {
             </Alert>
           </div>
         )}
-      </div>
+      </div> */}
       {seyahatler && (
         <div className="seyahat">
           {seyahatler.map((seyahat, index) => (
