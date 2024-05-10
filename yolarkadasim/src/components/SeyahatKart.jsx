@@ -4,17 +4,15 @@ import "../styles/SeyahatKart.css";
 import { SeyahatKartDialog } from "./SeyahatKartDialog";
 import SürücüResim from "../assets/Add-user.jpg";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Alert } from "@mui/material";
 
 export const SeyahatKart = ({ seyahatler }) => {
-  const [open, setOpen] = useState(null);
   const [aramaKriterleri, setAramaKriterleri] = useState({
     baslangicNoktasi: "",
     bitisNoktasi: "",
     tarih: "",
     bosKoltukSayisi: "",
   });
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,16 +48,20 @@ export const SeyahatKart = ({ seyahatler }) => {
     }
   }, [aramaKriterleri]);
 
-  const handleClickOpen = (index) => {
-    setOpen(index);
-  };
-
-  const handleClose = () => {
-    setOpen(null);
-  };
-
   return (
     <div>
+      <div>
+        {Object.values(aramaKriterleri).every(value => value === "") && (
+          <div>
+            <Alert
+              sx={{ fontSize: 20, backgroundColor: "salmon", borderRadius:20, width:900, marginTop:2 }}
+              severity="error"
+            >
+              Bu Seçimlere Uyan Bir Seyahat Bulunamamaktadır!
+            </Alert>
+          </div>
+        )}
+      </div>
       {seyahatler && (
         <div className="seyahat">
           {seyahatler.map((seyahat, index) => (
@@ -71,7 +73,7 @@ export const SeyahatKart = ({ seyahatler }) => {
                     {seyahat.baslangicNoktasi}
                   </p>
                 </div>
-                <div style={{marginLeft:4}} className="kart-eleman2">
+                <div style={{ marginLeft: 4 }} className="kart-eleman2">
                   <p className="kart-eleman-seçilen">Varış Noktası: </p>
                   <p className="kart-eleman-gelen">{seyahat.bitisNoktasi}</p>
                 </div>
@@ -81,7 +83,7 @@ export const SeyahatKart = ({ seyahatler }) => {
                   <p className="kart-eleman-seçilen">Boş Koltuk Sayısı:</p>
                   <p className="kart-eleman-gelen">{seyahat.bosKoltukSayisi}</p>
                 </div>
-                <div style={{marginLeft:63}} className="kart-eleman2">
+                <div style={{ marginLeft: 63 }} className="kart-eleman2">
                   <p className="kart-eleman-seçilen">Tarih: </p>
                   <p className="kart-eleman-gelen">{seyahat.tarih}</p>
                 </div>
@@ -93,7 +95,7 @@ export const SeyahatKart = ({ seyahatler }) => {
                     {seyahat.sigaraDurumu ? "Evet" : "Hayır"}
                   </p>
                 </div>
-                <div style={{marginLeft:44}} className="kart-eleman2">
+                <div style={{ marginLeft: 44 }} className="kart-eleman2">
                   <p className="kart-eleman-seçilen">Hayvan Durumu: </p>
                   <p className="kart-eleman-gelen">
                     {seyahat.hayvanDurumu ? "Evet" : "Hayır"}
@@ -105,18 +107,18 @@ export const SeyahatKart = ({ seyahatler }) => {
                   <p className="kart-eleman-seçilen">Saat: </p>
                   <p className="kart-eleman-gelen">{seyahat.saat}</p>
                 </div>
-                <div style={{marginLeft:107}} className="kart-eleman2">
+                <div style={{ marginLeft: 107 }} className="kart-eleman2">
                   <p className="kart-eleman-seçilen">Ücret: </p>
                   <p className="kart-eleman-gelen">{seyahat.ucret}</p>
                 </div>
               </div>
               <div className="kart-elemanlar">
-              <div className="sürücü-resim">
-                <img src={SürücüResim} alt="" />
-              </div>
-              <div className="iletisim">
-                <Link to="/mesajlar">Sürücü İle İletişime Geç</Link>
-              </div>
+                <div className="sürücü-resim">
+                  <img src={SürücüResim} alt="" />
+                </div>
+                <div className="iletisim">
+                  <Link to="/mesajlar">Sürücü İle İletişime Geç</Link>
+                </div>
               </div>
             </div>
           ))}
