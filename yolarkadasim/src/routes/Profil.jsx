@@ -1,8 +1,8 @@
 import React from "react";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import "../styles/Profil.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Avatar from "../assets/avatar.jpg";
 
 export const Profil = () => {
   return (
@@ -10,26 +10,34 @@ export const Profil = () => {
       <Navbar />
       <div className="enKapsayici">
         <div className="profil">Profil</div>
-        <AccountBoxIcon sx={{ width: "45px", height: "45px", marginLeft: "20px" }} />
-        <div className="profilBilgi">
-          <label className="label1">Ad Soyad</label>
-          <p className="paragraf1">İremnur Ahi</p>
-          <button className="adSoyadButon">Düzenle</button>
+        <div>
+          <img className="kişiResmi" src={Avatar} alt="" />
+          <button className="btn">Düzenle</button>
         </div>
         <div className="profilBilgi">
-          <label className="label1">Konum</label>
-          <p className="paragraf1">Zonguldak</p>
-          <button className="adSoyadButon">Düzenle</button>
+          <label>Ad</label>
+          <p>İremnur</p>
+          <button className="btn">Düzenle</button>
         </div>
         <div className="profilBilgi">
-          <label className="label1">Email</label>
-          <p className="paragraf1">iremnurahi@gmail.com</p>
-          <button className="adSoyadButon">Düzenle</button>
+          <label>Soyad</label>
+          <p>Ahi</p>
+          <button className="btn">Düzenle</button>
         </div>
         <div className="profilBilgi">
-          <label className="label1">Doğum Günü</label>
-          <p className="paragraf1">30/01/2000</p>
-          <button className="adSoyadButon">Düzenle</button>
+          <label>Şifre</label>
+          <p>Zonguldak</p>
+          <button className="btn">Düzenle</button>
+        </div>
+        <div className="profilBilgi">
+          <label>Email</label>
+          <p>iremnurahi@gmail.com</p>
+          <button className="btn">Düzenle</button>
+        </div>
+        <div className="profilBilgi">
+          <label>Doğum Günü</label>
+          <p>30/01/2000</p>
+          <button className="btn">Düzenle</button>
         </div>
       </div>
       <Footer />

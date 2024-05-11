@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/YolculukGörüntülemeAra2.css";
 import { SeyahatKart } from "./SeyahatKart";
@@ -8,12 +8,26 @@ export const YolculukGörüntülemeAra2 = () => {
   const [baslangicNoktasi, setBaslangicNoktasi] = useState("");
   const [bitisNoktasi, setBitisNoktasi] = useState("");
   const [tarih, setTarih] = useState("");
-  const [bosKoltukSayisi, setBosKoltukSayisi] = useState(0); 
+  const [bosKoltukSayisi, setBosKoltukSayisi] = useState(0);
   const [seyahatler, setSeyahatler] = useState([]);
   const [showAlert, setShowAlert] = useState(false); // Uyarı mesajı için state
+  const [showAlert2, setShowAlert2] = useState(false);
+
+  //Alert 3sn sonra gitsin
+  useEffect(() => {
+    if (showAlert !== null || showAlert2 !== null) {
+      const timer = setTimeout(() => {
+        setShowAlert(null);
+        setShowAlert2(null);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert, showAlert2]);
 
   const handleSearch = async () => {
     if (!baslangicNoktasi || !bitisNoktasi || !tarih || !bosKoltukSayisi) {
+      setShowAlert2(true);
       console.error("Lütfen tüm alanları doldurun.");
       return;
     }
@@ -31,7 +45,7 @@ export const YolculukGörüntülemeAra2 = () => {
         }
       );
 
-      if(response.data.length === 0) {
+      if (response.data.length === 0) {
         setShowAlert(true); // Veri bulunamazsa uyarı mesajını göster
       } else {
         setShowAlert(false);
@@ -109,15 +123,35 @@ export const YolculukGörüntülemeAra2 = () => {
       </div>
       {/* Uyarı mesajı */}
       {showAlert && (
-            <div className="uyarıMesajı">
-              <Alert
-                sx={{ fontSize: 20, backgroundColor: "salmon", borderRadius:20, width:900 }}
-                severity="error"
-              >
-                Bu Seçimlere Uyan Bir Seyahat Bulunamamaktadır!
-              </Alert>
-            </div>
-          )}
+        <div className="uyarıMesajı">
+          <Alert
+            sx={{
+              fontSize: 20,
+              backgroundColor: "salmon",
+              borderRadius: 20,
+              width: 900,
+            }}
+            severity="error"
+          >
+            Bu Seçimlere Uyan Bir Seyahat Bulunamamaktadır!
+          </Alert>
+        </div>
+      )}
+      {showAlert2 && (
+        <div className="uyarıMesajı">
+          <Alert
+            sx={{
+              fontSize: 20,
+              borderRadius: 20,
+              backgroundColor: "#F7DC6F",
+              width: 900,
+            }}
+            severity="warning"
+          >
+            Lütfen Tüm Alanları Doldurun!
+          </Alert>
+        </div>
+      )}
       <SeyahatKart seyahatler={seyahatler} />
     </div>
   );

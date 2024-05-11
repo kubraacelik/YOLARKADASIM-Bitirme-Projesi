@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import "../styles/ÜyeOl.css";
 import { useFormik } from "formik";
 import { basicSchema } from "../schemas";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
 
@@ -12,17 +12,22 @@ const ÜyeOl = () => {
   const [registerSuccess, setRegisterSuccess] = useState(null);
   const [agreed, setAgreed] = useState(false);
   const [showContract, setShowContract] = useState(false); // Kullanıcı sözleşmesi görünürlüğünü kontrol etmek için bir durum değişkeni
+  const navigation = useNavigate();
 
-  //Alert 3sn sonra gitsin
   useEffect(() => {
     if (registerSuccess !== null) {
-      const timer = setTimeout(() => {
+      const successTimer = setTimeout(() => {
         setRegisterSuccess(null);
+        // Başarılı kayıt olma durumunda 5 saniye sonra giriş sayfasına yönlendirme
+        if (registerSuccess === true) {
+          navigation('/girisYap');
+        }
       }, 3000);
-
-      return () => clearTimeout(timer);
+  
+      return () => clearTimeout(successTimer);
     }
-  }, [registerSuccess]);
+  }, [registerSuccess, navigation]);
+  
 
   const onSubmit = async (values, actions) => {
     console.log(values);
@@ -48,6 +53,7 @@ const ÜyeOl = () => {
       );
       console.log(response.data);
       return response.data;
+      
     } catch (error) {
       console.log("Bir hata oluştu:", error);
       throw error;

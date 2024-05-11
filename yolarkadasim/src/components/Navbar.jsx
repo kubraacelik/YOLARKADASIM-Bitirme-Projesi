@@ -1,16 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import { IoSearch } from "react-icons/io5";
 import Button from "@mui/material/Button";
-import { IoPerson } from "react-icons/io5";
+import { IoPerson, IoSearch } from "react-icons/io5";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useState } from "react";
 import logo from "../assets/LOGO NAVBAR.png";
 import { useNavigate } from "react-router-dom";
 import { FaCirclePlus } from "react-icons/fa6";
@@ -67,6 +65,8 @@ export default function Navbar() {
                 YOLCULUK ARA
               </Button>
             </IconButton>
+
+            
             <IconButton size="medium" color="inherit" onClick={handleClick}>
               <IoPerson style={{ color: "#EB7310", fontSize: 28 }} />
               <MdKeyboardArrowDown

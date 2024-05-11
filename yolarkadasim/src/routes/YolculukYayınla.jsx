@@ -19,8 +19,8 @@ export default function YolculukYayınla() {
   const [bosKoltukSayisi, setBosKoltukSayisi] = useState(0);
   const [baslangicNoktasi, setBaslangicNoktasi] = useState("");
   const [bitisNoktasi, setBitisNoktasi] = useState("");
-  const [tarih, setTarih] = useState("");
-  const [saat, setSaat] = useState("");
+  const [tarih, setTarih] = useState(null);
+  const [saat, setSaat] = useState(null);
   const [hayvanDurumu, setHayvanDurumu] = useState("");
   const [sigaraDurumu, setSigaraDurumu] = useState("");
   const [ucret, setUcret] = useState(0);
@@ -89,6 +89,8 @@ export default function YolculukYayınla() {
       setHayvanDurumu("");
       setSigaraDurumu("");
       setUcret(0);
+      setTarih(null)
+      setSaat(null)
     } catch (error) {
       console.error("Yolculuk kaydedilirken hata oluştu:", error);
       setKaydetmeDurumu(false);

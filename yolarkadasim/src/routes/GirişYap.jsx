@@ -4,23 +4,27 @@ import Footer from "../components/Footer";
 import "../styles/GirişYap.css";
 import { useFormik } from "formik";
 import { advancedSchema } from "../schemas";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
 
 const GirişYap = () => {
   const [loginSuccess, setLoginSuccess] = useState(null);
+  const navigation = useNavigate();
 
-  //Alert 3sn sonra gitsin
   useEffect(() => {
     if (loginSuccess !== null) {
       const timer = setTimeout(() => {
         setLoginSuccess(null);
+        // Başarılı giriş yapma durumunda 5 saniye sonra ana sayfaya yönlendirme
+        if (loginSuccess === true) {
+          navigation("/");
+        }
       }, 3000);
 
       return () => clearTimeout(timer);
     }
-  }, [loginSuccess]);
+  }, [loginSuccess, navigation]);
 
   const onSubmit = async (values, actions) => {
     console.log(values);
@@ -40,6 +44,8 @@ const GirişYap = () => {
         "http://localhost:8080/api/kullanicilar/login",
         userData
       );
+      console.log(response.data.token);
+      localStorage.setItem('token',response?.data)
       console.log(response.data);
       return response.data;
     } catch (error) {
