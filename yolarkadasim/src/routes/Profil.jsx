@@ -15,28 +15,28 @@ export const Profil = () => {
           <button className="btn">Düzenle</button>
         </div>
         <div className="profilBilgi">
-          <label>Ad</label>
-          <p>İremnur</p>
+          <label className="profil-label">Ad</label>
+          <p className="profil-paragraf">İremnur</p>
           <button className="btn">Düzenle</button>
         </div>
         <div className="profilBilgi">
-          <label>Soyad</label>
-          <p>Ahi</p>
+          <label className="profil-label">Soyad</label>
+          <p className="profil-paragraf">Ahi</p>
           <button className="btn">Düzenle</button>
         </div>
         <div className="profilBilgi">
-          <label>Şifre</label>
-          <p>Zonguldak</p>
+          <label className="profil-label">Şifre</label>
+          <p className="profil-paragraf">Zonguldak</p>
           <button className="btn">Düzenle</button>
         </div>
         <div className="profilBilgi">
-          <label>Email</label>
-          <p>iremnurahi@gmail.com</p>
+          <label className="profil-label">Email</label>
+          <p className="profil-paragraf">iremnurahi@gmail.com</p>
           <button className="btn">Düzenle</button>
         </div>
         <div className="profilBilgi">
-          <label>Doğum Günü</label>
-          <p>30/01/2000</p>
+          <label className="profil-label">Doğum Günü</label>
+          <p className="profil-paragraf">30/01/2000</p>
           <button className="btn">Düzenle</button>
         </div>
       </div>
