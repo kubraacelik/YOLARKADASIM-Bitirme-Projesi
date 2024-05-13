@@ -4,11 +4,9 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Avatar from "../assets/avatar.jpg";
 import { jwtDecode } from "jwt-decode";
-import { styled } from "@mui/material/styles";
-import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { TextField } from "@mui/material";
 import { InputText } from "primereact/inputtext";
+import { useNavigate } from "react-router-dom";
 
 export const Profil = () => {
   const userToken = localStorage.getItem("token");
@@ -18,12 +16,19 @@ export const Profil = () => {
   const password = data.sifre;
   const eposta = data.eposta;
 
+  const navigation = useNavigate();
+
+
   const [profileImage, setProfileImage] = useState(
     localStorage.getItem("profileImage") || Avatar
   );
   const [tempProfileImage, setTempProfileImage] = useState(
     localStorage.getItem("tempProfileImage") || null
   );
+
+  const handlePasswordUpdate = () => {
+    navigation('/yeniSifre'); 
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -43,17 +48,6 @@ export const Profil = () => {
     localStorage.setItem("profileImage", profileImage);
   }, [profileImage]);
 
-  const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-  });
 
   return (
     <>
@@ -88,6 +82,11 @@ export const Profil = () => {
                     label={name}
                     variant="outlined"
                     disabled
+                    inputProps={{
+                      style:{
+                        width:450
+                      }
+                    }}
                     InputLabelProps={{
                       style: {
                         fontSize: "20px",
@@ -105,6 +104,11 @@ export const Profil = () => {
                     label={surname}
                     variant="outlined"
                     disabled
+                    inputProps={{
+                      style:{
+                        width:450
+                      }
+                    }}
                     InputLabelProps={{
                       style: {
                         fontSize: "20px",
@@ -122,6 +126,11 @@ export const Profil = () => {
                     label={eposta}
                     variant="outlined"
                     disabled
+                    inputProps={{
+                      style:{
+                        width:450
+                      }
+                    }}
                     InputLabelProps={{
                       style: {
                         fontSize: "20px",
@@ -133,29 +142,11 @@ export const Profil = () => {
                 </div>
               </div>
               <div className="yeniSifre">
-                <button className="yeniSifreBtn">Şifreni Güncelle</button>
+                <button className="yeniSifreBtn" onClick={handlePasswordUpdate}>Şifreni Güncelle</button>
               </div>
             </div>
           </div>
         </div>
-
-        {/* <div className="yeniSifre">
-            <div className="profilBilgi">
-              <label className="profil-label">Mevcut Şifrenizi Giriniz</label>
-              <Input type="password" />
-            </div>
-            <div className="profilBilgi">
-              <label className="profil-label">Yeni Şifrenizi Giriniz</label>
-              <Input type="password" />
-            </div>
-            <div className="profilBilgi">
-              <label className="profil-label">
-                Yeni Şifrenizi Tekrar Giriniz
-              </label>
-              <Input type="password" />
-            </div>
-            <button className="btnGuncelle">Güncelle</button>
-          </div> */}
       </div>
       <Footer />
     </>

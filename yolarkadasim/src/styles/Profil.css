@@ -44,10 +44,6 @@
   width: 67%;
 }
 
-.yeniSifre{
-  width: 33%;
-}
-
 .yeniSifreBtn{
   width: 80%;
   height: 15%;
@@ -67,30 +63,93 @@
   justify-content: center;
 }
 
-.profilBilgi {
-  display: flex;
-  margin-bottom: 20px;
-  width: 60%;
-}
-
 .profil-label{
   margin: 20px 10px 20px 20px;
-  width: 50%;
+  width: 60%;
   height: 50px;
   font-size: 20px;
   font-weight: 500;
+}
+
+.btnGuncelleContainer{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 25px;
 }
 
 .btnGuncelle {
   width: 120px;
   height: 40px;
   border: none;
-  border-radius: 20px;
-  margin: 10px 20px 20px 5px;
+  border-radius: 15px;
   background-color: #eb7310;
   color: #fff;
   font-size: 20px;
   font-weight: 400;
   cursor: pointer;
+  margin: 10px 20px 20px 5px;
 }
 
+.profilBilgi {
+  display: flex;
+  margin-bottom: 20px;
+  width: 60%;
+}
+
+.yeniSifre{
+  width: 33%;
+}
+
+.yeniSifreContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+
+.yeniSifre-aciklama {
+  font-size: 35px;
+  font-weight: 600;
+  color: #eb7310;
+  margin-top: 40px;
+}
+
+.yeniSifre-profilBilgi {
+  display: flex;
+  flex-direction: column;
+  margin: 25px 0;
+}
+
+.profil-label {
+  font-size: 22px;
+}
+
+.yeniSifre{
+  margin-bottom: 5%;
+}
+
+.yeniSifreGuncelleme input{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+
+.yeniSifre-label{
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.input-error {
+  border-color: red;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 15px;
+}

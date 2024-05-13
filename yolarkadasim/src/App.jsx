@@ -7,6 +7,7 @@ import YolculukYayınla from "./routes/YolculukYayınla";
 import YolculukGörüntüle from "./routes/YolculukGörüntüle";
 import { Profil } from "./routes/Profil";
 import Mesaj from "./routes/Mesaj";
+import  YeniSifre from "./routes/YeniSifre";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/mesajlar" element={<Mesaj />} />
         <Route path="/profilAyarlari" element={<Profil />} />
         <Route path="/mesaj" element={<Mesaj />} />
+        <Route path="/yeniSifre" element={<YeniSifre />}/>
       </Routes>
     </div>
   );

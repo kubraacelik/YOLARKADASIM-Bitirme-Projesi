@@ -79,7 +79,7 @@ const GirişYap = () => {
                   value={values.eposta}
                   onChange={handleChange}
                   id="eposta"
-                  className={errors.eposta ? "input-error" : ""}
+                  className={errors.eposta ? "yeniSifreinput-error" : ""}
                 />
                 {errors.eposta && <p className="error">{errors.eposta}</p>}
               </div>
