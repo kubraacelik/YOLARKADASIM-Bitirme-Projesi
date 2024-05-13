@@ -6,19 +6,30 @@
   font-size: 45px;
   font-weight: 600;
   text-align: center;
-  margin: 20px 0 40px;
+  margin: 40px 0;
 }
 
 .kapsayıcı{
   display: flex;
   flex-direction: row;
-  margin: 30px;
 }
 
 .kapsayıcıSol {
-  width: 30%;
+  width: 40%;
   display: flex;
   flex-direction: column;
+}
+
+.kişiResmi{
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  margin-left: 25%;
+  margin-bottom: 30px;
+}
+
+.btnUpload{
+  width: 50%;
 }
 
 .kapsayıcıSag {
@@ -30,11 +41,11 @@
 }
 
 .profilBilgileri{
-  width: 70%;
+  width: 67%;
 }
 
 .yeniSifre{
-  width: 30%;
+  width: 33%;
 }
 
 .yeniSifreBtn{
@@ -50,20 +61,10 @@
   margin-top: 74%;
 }
 
-.kişiResmi{
-  width: 150px;
-  margin-left: 32%;
-  margin-bottom: 30px;
-}
-
 .kapsayıcıBtnUpload{
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.btnUpload{
-  width: 50%;
 }
 
 .profilBilgi {
