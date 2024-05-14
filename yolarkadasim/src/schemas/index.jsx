@@ -37,3 +37,21 @@ export const advancedSchema = yup.object().shape({
     })
     .required("Şifre girmek zorunludur"),
   });
+
+// ŞİFRE GÜNCELLE
+export const updateSchema = yup.object().shape({
+    sifre: yup
+    .string()
+    .min(5, "Lütfen minimum 5 karakter giriniz")
+    .matches(passwordRules, {
+      message: "Lütfen en az 1 büyük harf, 1 küçük harf ve 1 sayı giriniz",
+    })
+    .required("Şifre girmek zorunludur"),
+    yeniSifre: yup
+    .string()
+    .min(5, "Lütfen minimum 5 karakter giriniz")
+    .matches(passwordRules, {
+      message: "Lütfen en az 1 büyük harf, 1 küçük harf ve 1 sayı giriniz",
+    })
+    .required("Şifre girmek zorunludur"),
+});
