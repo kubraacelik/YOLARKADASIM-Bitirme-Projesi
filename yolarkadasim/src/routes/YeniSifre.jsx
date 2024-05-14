@@ -1,76 +1,75 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useFormik } from "formik";
-import { updateSchema } from "../schemas";
-import { Alert } from "@mui/material";
+import { basicSchema } from "../schemas";
+import axios from "axios";
+import Alert from "@mui/material/Alert";
 
 const YeniSifre = () => {
   const [yeniSifre, setYeniSifre] = useState(null);
   const navigation = useNavigate();
 
   useEffect(() => {
-    if (yeniSifre === true) {
-      const timer = setTimeout(() => {
+    const successTimer = setTimeout(() => {
+      setYeniSifre(null);
+      // Başarılı kayıt olma durumunda 2 saniye sonra giriş sayfasına yönlendirme
+      if (yeniSifre === true) {
         navigation("/profilAyarlari");
-      }, 3000);
+      }
+    }, 2000);
 
-      return () => clearTimeout(timer);
-    }
+    return () => clearTimeout(successTimer);
   }, [yeniSifre, navigation]);
 
   const onSubmit = async (values, actions) => {
     try {
-      const isPasswordValid = await validateCurrentPassword(values.sifre);
-      if (isPasswordValid) {
-        await updatePassword(values.yeniSifre);
-        setYeniSifre(true);
-        actions.resetForm();
-      } else {
-        setYeniSifre(false);
+      const token = localStorage.getItem("token"); // localStorage'dan token bilgisini al
+      if (!token) {
+        console.error("Token bulunamadı!");
+        return;
       }
+
+      const decodedToken = JSON.parse(atob(token.split(".")[1])); // Token'ı parse ederek içindeki bilgilere erişme
+      const eposta = decodedToken.eposta;
+
+      await updateUserPassword(eposta, values.sifre); // Kullanıcının şifresini güncelle
+      actions.resetForm(); // Formu sıfırla
+      setYeniSifre(true); // Başarı durumunda true
     } catch (error) {
       console.error("Bir hata oluştu:", error);
+      setYeniSifre(false); // Hata durumunda false
     }
   };
-  const updatePassword = async (newPassword) => {
+
+  
+
+
+  const updateUserPassword = async (eposta, newPass) => {
     try {
-      await axios.patch(
-        "http://localhost:8080/api/kullanicilar", // Kullanıcı kimliğini ve yeni şifreyi uygun bir endpoint'e gönderin
-        { newPassword }
+      // Kullanıcının şifresini güncelle
+      const response = await axios.put(
+        `http://localhost:8080/api/kullanicilar/${eposta}`,
+        { sifre: newPass }
       );
+      console.log(response.data);
+      return response.data;
     } catch (error) {
-      console.error("Şifre güncelleme hatası:", error);
+      console.error("Bir hata oluştu:", error);
       throw error;
     }
   };
-  
 
-  const validateCurrentPassword = async (password) => {
-    try {
-      const res = await axios.post("http://localhost:8080/api/kullanicilar", {
-        password: password
-      });
-      console.log(res.data);
-      return res.data.isValid;
-    } catch (error) {
-      console.log("Bir hata oluştu:", error);
-      throw error;
-    }
-  };
-  
+  const { values, errors, handleSubmit, handleChange } = useFormik({
+    initialValues: {
+      sifre: "",
+      tekrarliSifre: "",
+    },
+    validationSchema: basicSchema,
+    onSubmit,
+  });
 
-  const { values, errors, isSubmitting, handleSubmit, handleChange } = useFormik({
-      initialValues: {
-        sifre: "",
-        yeniSifre: "",
-      },
-      validationSchema: updateSchema,
-      onSubmit,
-    });
-console.log(values.sifre);
   return (
     <div>
       <Navbar />
@@ -80,30 +79,6 @@ console.log(values.sifre);
         </div>
         <div className="yeniSifreGuncelleme">
           <form onSubmit={handleSubmit}>
-            <div className="yeniSifre-profilBilgi">
-              <label className="yeniSifre-label">
-                Mevcut Şifrenizi Giriniz *
-              </label>
-              <input
-                style={{
-                  width: 300,
-                  padding: 12,
-                  fontSize: 15,
-                  borderRadius: 10,
-                  marginLeft: 610,
-                  marginTop: 20,
-                }}
-                type="password"
-                placeholder="Mevcut Şifrenizi Giriniz"
-                value={values.sifre}
-                onChange={handleChange}
-                id="sifre"
-                className={errors.sifre ? "input-error" : ""}
-              />
-              {errors.sifre && (
-                <p className="error">{errors.sifre}</p>
-              )}
-            </div>
             <div className="yeniSifre-profilBilgi">
               <label className="yeniSifre-label">
                 Yeni Şifrenizi Giriniz *
@@ -119,12 +94,36 @@ console.log(values.sifre);
                 }}
                 type="password"
                 placeholder="Yeni Şifrenizi Giriniz"
-                value={values.yeniSifre}
+                value={values.sifre}
                 onChange={handleChange}
-                id="yeniSifre"
-                className={errors.yeniSifre ? "input-error" : ""}
+                id="sifre"
+                className={errors.sifre ? "input-error" : ""}
               />
-              {errors.yeniSifre && <p className="error">{errors.yeniSifre}</p>}
+              {errors.sifre && <p className="error">{errors.sifre}</p>}
+            </div>
+            <div className="yeniSifre-profilBilgi">
+              <label className="yeniSifre-label">
+                Yeni Şifrenizi Tekrar Giriniz *
+              </label>
+              <input
+                style={{
+                  width: 300,
+                  padding: 12,
+                  fontSize: 15,
+                  borderRadius: 10,
+                  marginLeft: 610,
+                  marginTop: 20,
+                }}
+                type="password"
+                placeholder="Yeni Şifrenizi Tekrar Giriniz"
+                value={values.tekrarliSifre}
+                onChange={handleChange}
+                id="tekrarliSifre"
+                className={errors.tekrarliSifre ? "input-error" : ""}
+              />
+              {errors.tekrarliSifre && (
+                <p className="error">{errors.tekrarliSifre}</p>
+              )}
             </div>
 
             <div className="btnGuncelleContainer">
@@ -132,28 +131,28 @@ console.log(values.sifre);
                 Güncelle
               </button>
             </div>
+            {yeniSifre === true && (
+              <div>
+                <Alert
+                  sx={{ fontSize: 20, backgroundColor: "lightgreen" }}
+                  severity="success"
+                >
+                  Şifre Başarıyla Kayıt Edildi.
+                </Alert>
+              </div>
+            )}
+            {yeniSifre === false && (
+              <div>
+                <Alert
+                  sx={{ fontSize: 20, backgroundColor: "salmon" }}
+                  severity="error"
+                >
+                  Şifre Kayıt Edilirken Hata Oluştu!
+                </Alert>
+              </div>
+            )}
           </form>
         </div>
-        {yeniSifre === true && (
-          <div>
-            <Alert
-              sx={{ fontSize: 20, backgroundColor: "lightgreen", width:300, marginLeft:77, marginBottom:5, borderRadius:10  }}
-              severity="success"
-            >
-              Başarıyla Güncelleme Yapıldı.
-            </Alert>
-          </div>
-        )}
-        {yeniSifre === false && (
-          <div>
-            <Alert
-              sx={{ fontSize: 20, backgroundColor: "salmon", width:300, marginLeft:77, marginBottom:5, borderRadius:10 }}
-              severity="error"
-            >
-              Mevcut Şifreniz Hatalı!
-            </Alert>
-          </div>
-        )}
       </div>
       <Footer />
     </div>
