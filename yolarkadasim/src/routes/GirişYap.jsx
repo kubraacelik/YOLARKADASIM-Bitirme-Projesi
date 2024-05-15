@@ -45,7 +45,7 @@ const GirişYap = () => {
         userData
       );
       console.log(response.data.token);
-      localStorage.setItem('token',response?.data)
+      localStorage.setItem('token', response.data.token); // 'token' yerine 'response.data.token' kullanılmalı
       console.log(response.data);
       return response.data;
     } catch (error) {
@@ -53,6 +53,7 @@ const GirişYap = () => {
       throw error;
     }
   };
+  
 
   const { values, errors, isSubmitting, handleSubmit, handleChange } =
     useFormik({
