@@ -44,8 +44,7 @@ const GirişYap = () => {
         "http://localhost:8080/api/kullanicilar/login",
         userData
       );
-      console.log(response.data.token);
-      localStorage.setItem('token', response.data.token); // 'token' yerine 'response.data.token' kullanılmalı
+      localStorage.setItem('token', response.data); // 'token' yerine 'response.data.token' kullanılmalı
       console.log(response.data);
       return response.data;
     } catch (error) {
