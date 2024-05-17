@@ -54,7 +54,8 @@
   font-size: 22px;
   font-weight: 500;
   cursor: pointer;
-  margin-top: 74%;
+  margin-top: 330px;
+  
 }
 
 .kapsayıcıBtnUpload{
@@ -100,6 +101,7 @@
 
 .yeniSifre{
   width: 33%;
+  margin-bottom: 5%;
 }
 
 .yeniSifreContainer {
@@ -124,10 +126,6 @@
 
 .profil-label {
   font-size: 22px;
-}
-
-.yeniSifre{
-  margin-bottom: 5%;
 }
 
 .yeniSifreGuncelleme input{

@@ -1,0 +1,42 @@
+.yeniSifreForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
+.yeniSifre-container {
+    text-align: center;
+}
+
+.yeniSifre-container input {
+    margin: 20px 0;
+}
+
+.yeniSifre-name {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.yeniSifre-btn {
+    width: 450px;
+    padding: 10px;
+    background-color: #EB7310;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.yeniSifre-btn:hover {
+    background-color: #cf6916;
+}
+
+.yeniSifre-error{
+    margin-bottom: 20px;
+    color: red;
+    font-size: 18px;
+    font-weight: 500;
+}
