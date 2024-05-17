@@ -47,4 +47,8 @@ export const advancedSchema = yup.object().shape({
       message: "Lütfen en az 1 büyük harf, 1 küçük harf ve 1 sayı giriniz",
     })
     .required("Şifre girmek zorunludur"),
+    guncellenmisTekrarliSifre: yup
+    .string()
+    .oneOf([yup.ref("guncellenmisSifre")], "Şifreler eşleşmiyor")
+    .required("Şifreyi tekrar girmek zorunludur"),
   });

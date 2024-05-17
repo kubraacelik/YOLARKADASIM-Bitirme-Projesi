@@ -14,6 +14,7 @@ import { MdOutlineSmokeFree } from "react-icons/md";
 import { GiTakeMyMoney } from "react-icons/gi";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
+import  {jwtDecode}  from "jwt-decode";
 
 export default function YolculukYayınla() {
   const [bosKoltukSayisi, setBosKoltukSayisi] = useState(0);
@@ -25,6 +26,15 @@ export default function YolculukYayınla() {
   const [sigaraDurumu, setSigaraDurumu] = useState("");
   const [ucret, setUcret] = useState(0);
   const [kaydetmeDurumu, setKaydetmeDurumu] = useState(null);
+  const [surucuId, setSurucuId] = useState("")
+
+  useEffect(() => {
+    const userToken = localStorage.getItem("token");
+    const data = jwtDecode(userToken);
+    const kullaniciId = data.kullaniciId;
+    setSurucuId(kullaniciId);
+  }, []); // Boş bağımlılık dizisi ile sadece bileşen ilk kez render edildiğinde çalışmasını sağlar
+  
 
   //Alert 3sn sonra gitsin
   useEffect(() => {
@@ -70,6 +80,7 @@ export default function YolculukYayınla() {
       const response = await axios.post(
         "http://localhost:8080/api/seyahatler",
         {
+          surucuId,
           bosKoltukSayisi,
           baslangicNoktasi,
           bitisNoktasi,
@@ -119,6 +130,11 @@ export default function YolculukYayınla() {
           <Typography textAlign="center" variant="h6">
             Yolculuk Detaylarını Paylaşın
           </Typography>
+          
+          <Box>
+          <input type="hidden" value={surucuId} />
+          </Box>
+
           <Box
             sx={{
               textAlign: "center",

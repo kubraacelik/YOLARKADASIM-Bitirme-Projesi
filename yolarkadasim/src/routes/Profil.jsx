@@ -15,9 +15,9 @@ export const Profil = () => {
   const surname = data.soyad;
   const password = data.sifre;
   const eposta = data.eposta;
+  const kayitTarihi = data.kayitTarihi;
 
   const navigation = useNavigate();
-
 
   const [profileImage, setProfileImage] = useState(
     localStorage.getItem("profileImage") || Avatar
@@ -27,16 +27,14 @@ export const Profil = () => {
   );
 
   const handlePasswordUpdate = () => {
-    navigation('/yeniSifre'); 
+    navigation("/yeniSifre");
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-      setProfileImage(reader.result);
-      setTempProfileImage(reader.result); // Geçici profil resmini güncelle
-      localStorage.setItem("tempProfileImage", reader.result); // Geçici profil resmini localStorage'e kaydet
+      setTempProfileImage(reader.result); // Sadece geçici profil resmini güncelle
     };
     if (file) {
       reader.readAsDataURL(file);
@@ -47,7 +45,6 @@ export const Profil = () => {
     // Component yüklendiğinde, localStorage'den geçici profil resmini al
     localStorage.setItem("profileImage", profileImage);
   }, [profileImage]);
-
 
   return (
     <>
@@ -83,9 +80,9 @@ export const Profil = () => {
                     variant="outlined"
                     disabled
                     inputProps={{
-                      style:{
-                        width:450
-                      }
+                      style: {
+                        width: 450,
+                      },
                     }}
                     InputLabelProps={{
                       style: {
@@ -105,9 +102,9 @@ export const Profil = () => {
                     variant="outlined"
                     disabled
                     inputProps={{
-                      style:{
-                        width:450
-                      }
+                      style: {
+                        width: 450,
+                      },
                     }}
                     InputLabelProps={{
                       style: {
@@ -127,9 +124,31 @@ export const Profil = () => {
                     variant="outlined"
                     disabled
                     inputProps={{
-                      style:{
-                        width:450
-                      }
+                      style: {
+                        width: 450,
+                      },
+                    }}
+                    InputLabelProps={{
+                      style: {
+                        fontSize: "20px",
+                        fontWeight: "normal",
+                        color: "black",
+                      },
+                    }}
+                  />
+                </div>
+                <div className="profilBilgi">
+                  <label className="profil-label">Kayıt Tarihi :</label>
+                  <TextField
+                    className="profil-paragraf"
+                    id="outlined-basic"
+                    label={kayitTarihi}
+                    variant="outlined"
+                    disabled
+                    inputProps={{
+                      style: {
+                        width: 450,
+                      },
                     }}
                     InputLabelProps={{
                       style: {
@@ -142,7 +161,12 @@ export const Profil = () => {
                 </div>
               </div>
               <div className="yeniSifre">
-                <button className="yeniSifreBtn" onClick={handlePasswordUpdate}>Şifreni Güncelle</button>
+                <button
+                  className="yeniSifreBtn"
+                  onClick={handlePasswordUpdate}
+                >
+                  Şifreni Güncelle
+                </button>
               </div>
             </div>
           </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/SeyahatKart.css";
 import { SeyahatKartDialog } from "./SeyahatKartDialog";
-import SürücüResim from "../assets/Add-user.jpg";
+import SürücüResim from "../assets/driver.png";
 import { Link } from "react-router-dom";
 import { Alert } from "@mui/material";
 
@@ -47,6 +47,7 @@ export const SeyahatKart = ({ seyahatler }) => {
       fetchData();
     }
   }, [aramaKriterleri]);
+  
 
   return (
     <div>
@@ -116,6 +117,9 @@ export const SeyahatKart = ({ seyahatler }) => {
                 <div className="sürücü-resim">
                   <img src={SürücüResim} alt="" />
                 </div>
+              <div className="sürücü-adsoyad">
+
+              </div>
                 <div className="iletisim">
                   <Link to="/mesajlar">Sürücü İle İletişime Geç</Link>
                 </div>
