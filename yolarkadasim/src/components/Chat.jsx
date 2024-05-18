@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { db, auth } from '../firebase';
 import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from 'firebase/firestore';
+import "../styles/Chat.css";
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const currentUser = auth.currentUser;
 
-  // Mesajları Firestore'dan çekme
   useEffect(() => {
     const q = query(collection(db, 'messages'), orderBy('timestamp'));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -20,7 +21,6 @@ const Chat = () => {
     return unsubscribe;
   }, []);
 
-  // Yeni mesaj gönderme
   const sendMessage = async (e) => {
     e.preventDefault();
     if (newMessage.trim() === '') return;
@@ -29,8 +29,8 @@ const Chat = () => {
       await addDoc(collection(db, 'messages'), {
         text: newMessage,
         timestamp: serverTimestamp(),
-        uid: auth.currentUser.uid,
-        displayName: auth.currentUser.email // veya kullanıcı adı
+        uid: currentUser.uid,
+        displayName: currentUser.email
       });
       setNewMessage('');
     } catch (error) {
@@ -39,15 +39,18 @@ const Chat = () => {
   };
 
   return (
-    <div>
-      <div>
-        {messages.map(({ id, text, displayName }) => (
-          <div key={id}>
-            <strong>{displayName}</strong>: {text}
+    <div className="chat-container">
+      <div className="message-list">
+        {messages.map(({ id, text, displayName, uid }) => (
+          <div key={id} className={`message-bubble ${uid === currentUser.uid ? 'user-message' : 'other-message'}`}>
+            <div className={`message ${uid === currentUser.uid ? 'user-message' : 'other-message'}`}>
+              <strong>{displayName}</strong>
+              {text}
+            </div>
           </div>
         ))}
       </div>
-      <form onSubmit={sendMessage}>
+      <form className="message-form" onSubmit={sendMessage}>
         <input
           type="text"
           value={newMessage}
