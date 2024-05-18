@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '../firebase';
+import "../styles/Chat.css";  
 
 const AuthContext = createContext();
 
@@ -21,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;  // Veya bir yükleniyor bileşeni gösterebilirsiniz
+    return <div className="loading-container">Mesajlar Yükleniyor...</div>; 
   }
 
   return (

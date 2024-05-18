@@ -1,10 +1,21 @@
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  font-size: 2em;
+  font-weight: 700;
+  color: #555;
+  background-color: #f9f9f9;
+}
+
 .chat-container {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    max-width: 900px; /* Daha geniş bir ekran için artırıldı */
-    margin: 0 auto;
-    height: 80vh; /* Daha büyük bir ekran */
+    max-width: 900px; 
+    margin: 20px auto;
+    height: 80vh; 
     border: 1px solid #ccc;
     border-radius: 10px;
     overflow: hidden;

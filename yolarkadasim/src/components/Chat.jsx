@@ -55,9 +55,9 @@ const Chat = () => {
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Type your message here..."
+          placeholder="Mesajınızı Buraya Yazınız..."
         />
-        <button type="submit">Send</button>
+        <button type="submit">Gönder</button>
       </form>
     </div>
   );
