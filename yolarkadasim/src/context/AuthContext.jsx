@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '../firebase';
-import "../styles/Chat.css";  
 
 const AuthContext = createContext();
 
@@ -21,13 +20,23 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  if (loading) {
-    return <div className="loading-container">Mesajlar Yükleniyor...</div>; 
-  }
+  const login = async (email, password) => {
+    await auth.signInWithEmailAndPassword(email, password);
+  };
+
+  const logout = async () => {
+    try {
+      await auth.signOut();
+      // Token'ı sıfırla
+      localStorage.removeItem('token');
+    } catch (error) {
+      console.error('Error logging out: ', error);
+    }
+  };
 
   return (
-    <AuthContext.Provider value={{ currentUser }}>
-      {children}
+    <AuthContext.Provider value={{ currentUser, login, logout }}>
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

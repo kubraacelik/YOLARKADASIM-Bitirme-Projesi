@@ -12,25 +12,22 @@ import MenuItem from "@mui/material/MenuItem";
 import logo from "../assets/LOGO NAVBAR.png";
 import { useNavigate } from "react-router-dom";
 import { FaCirclePlus } from "react-icons/fa6";
+import { useAuth } from "../context/AuthContext"; 
 
 export default function Navbar() {
-  //menünün açık veya kapalı olduğunu takip eder.
   const [anchorEl, setAnchorEl] = useState(null);
+  const { currentUser, logout } = useAuth(); 
+  const navigate = useNavigate();
 
-  //menünün açık olup olmadığını belirler.
   const openControl = Boolean(anchorEl);
 
-  //menünün kapatılması için kullanılır.
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  //kullanıcı simgesine tıklanılması için kullanılır.
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
-  const navigate = useNavigate();
 
   return (
     <AppBar position="static" sx={{ padding: 2, backgroundColor: "#fff" }}>
@@ -66,7 +63,6 @@ export default function Navbar() {
               </Button>
             </IconButton>
 
-            
             <IconButton size="medium" color="inherit" onClick={handleClick}>
               <IoPerson style={{ color: "#EB7310", fontSize: 28 }} />
               <MdKeyboardArrowDown
@@ -80,21 +76,25 @@ export default function Navbar() {
             onClose={handleClose}
             sx={{ cursor: "pointer", width: 250 }}
           >
-            <MenuItem sx={{ fontSize: 17 }} onClick={() => navigate("/uyeOl")}>
-              Üye Ol
-            </MenuItem>
-            <MenuItem
-              sx={{ fontSize: 17 }}
-              onClick={() => navigate("/girisYap")}
-            >
-              Giriş Yap
-            </MenuItem>
-            <MenuItem
-              sx={{ fontSize: 17 }}
-              onClick={() => navigate("/profilAyarlari")}
-            >
-              Profil Ayarları
-            </MenuItem>
+            {currentUser ? (
+              <>
+                <MenuItem sx={{ fontSize: 17 }} onClick={() => navigate("/profilAyarlari")}>
+                  Profil Ayarları
+                </MenuItem>
+                <MenuItem sx={{ fontSize: 17 }} onClick={() => { logout(); navigate('/girisYap'); }}>
+                  Çıkış Yap
+                </MenuItem>
+              </>
+            ) : (
+              <>
+                <MenuItem sx={{ fontSize: 17 }} onClick={() => navigate("/uyeOl")}>
+                  Üye Ol
+                </MenuItem>
+                <MenuItem sx={{ fontSize: 17 }} onClick={() => navigate("/girisYap")}>
+                  Giriş Yap
+                </MenuItem>
+              </>
+            )}
           </Menu>
         </Toolbar>
       </Container>
