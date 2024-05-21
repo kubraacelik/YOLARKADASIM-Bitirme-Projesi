@@ -12,14 +12,14 @@ import MenuItem from "@mui/material/MenuItem";
 import logo from "../assets/LOGO NAVBAR.png";
 import { useNavigate } from "react-router-dom";
 import { FaCirclePlus } from "react-icons/fa6";
-import { useAuth } from "../context/AuthContext"; 
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { currentUser, logout } = useAuth(); 
   const navigate = useNavigate();
 
   const openControl = Boolean(anchorEl);
+  const token = localStorage.getItem("token");
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -27,6 +27,11 @@ export default function Navbar() {
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleLogout = () => {
+    localStorage.setItem("token", ""); // Token değerini boş bir dize olarak ayarla
+    navigate("/girisYap"); // Çıkış yapıldıktan sonra giriş sayfasına yönlendir
   };
 
   return (
@@ -76,22 +81,31 @@ export default function Navbar() {
             onClose={handleClose}
             sx={{ cursor: "pointer", width: 250 }}
           >
-            {currentUser ? (
+            {token ? (
               <>
-                <MenuItem sx={{ fontSize: 17 }} onClick={() => navigate("/profilAyarlari")}>
+                <MenuItem
+                  sx={{ fontSize: 17 }}
+                  onClick={() => navigate("/profilAyarlari")}
+                >
                   Profil Ayarları
                 </MenuItem>
-                <MenuItem sx={{ fontSize: 17 }} onClick={() => { logout(); navigate('/girisYap'); }}>
+                <MenuItem sx={{ fontSize: 17 }} onClick={handleLogout}>
                   Çıkış Yap
                 </MenuItem>
               </>
             ) : (
               <>
-                <MenuItem sx={{ fontSize: 17 }} onClick={() => navigate("/uyeOl")}>
-                  Üye Ol
-                </MenuItem>
-                <MenuItem sx={{ fontSize: 17 }} onClick={() => navigate("/girisYap")}>
+                <MenuItem
+                  sx={{ fontSize: 17 }}
+                  onClick={() => navigate("/girisYap")}
+                >
                   Giriş Yap
+                </MenuItem>
+                <MenuItem
+                  sx={{ fontSize: 17 }}
+                  onClick={() => navigate("/uyeOl")}
+                >
+                  Üye Ol
                 </MenuItem>
               </>
             )}
