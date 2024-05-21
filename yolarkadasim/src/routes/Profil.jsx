@@ -17,24 +17,22 @@ export const Profil = () => {
   const eposta = data.eposta;
   const kayitTarihi = data.kayitTarihi;
 
-  const navigation = useNavigate();
+  const navigate = useNavigate();
 
-  const [profileImage, setProfileImage] = useState(
-    localStorage.getItem("profileImage") || Avatar
-  );
-  const [tempProfileImage, setTempProfileImage] = useState(
-    localStorage.getItem("tempProfileImage") || null
-  );
+  const [profileImage, setProfileImage] = useState(localStorage.getItem("profileImage") || Avatar);
+  const [tempProfileImage, setTempProfileImage] = useState(null);
 
   const handlePasswordUpdate = () => {
-    navigation("/yeniSifre");
+    navigate("/yeniSifre");
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-      setTempProfileImage(reader.result); // Sadece geçici profil resmini güncelle
+      setTempProfileImage(reader.result);
+      setProfileImage(reader.result); // Kalıcı olarak profil resmini güncelle
+      localStorage.setItem("profileImage", reader.result); // Yeni resmi localStorage'a kaydet
     };
     if (file) {
       reader.readAsDataURL(file);
@@ -42,9 +40,11 @@ export const Profil = () => {
   };
 
   useEffect(() => {
-    // Component yüklendiğinde, localStorage'den geçici profil resmini al
-    localStorage.setItem("profileImage", profileImage);
-  }, [profileImage]);
+    // Profil resmi değiştiğinde localStorage'a kaydet
+    if (tempProfileImage) {
+      localStorage.setItem("profileImage", tempProfileImage);
+    }
+  }, [tempProfileImage]);
 
   return (
     <>
@@ -53,15 +53,11 @@ export const Profil = () => {
         <div className="profil">Profilinizi Düzenleyin</div>
         <div className="kapsayıcı">
           <div className="kapsayıcıSol">
-            <img
-              className="kişiResmi"
-              src={tempProfileImage || profileImage}
-              alt=""
-            />
+            <img className="kişiResmi" src={profileImage} alt="" />
             <div className="kapsayıcıBtnUpload">
               <InputText
                 type="file"
-                accept="/image/*"
+                accept="image/*"
                 onChange={handleImageChange}
                 className="btnUpload"
               />

@@ -1,8 +1,8 @@
-// SignIn.jsx
 import React, { useState, useEffect } from "react";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import {jwtDecode} from "jwt-decode";
+import "../styles/SignIn.css"
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -34,9 +34,9 @@ const SignIn = () => {
   };
 
   return (
-    <div>
-      <h2>Sign In</h2>
-      <form onSubmit={handleSignIn}>
+    <div className="signIn-container">
+      <h2>Mesajlaşmak İçin Giriş Yapınız</h2>
+      <form className="signIn-container-form" onSubmit={handleSignIn}>
         <input
           type="email"
           id="email"
@@ -53,7 +53,7 @@ const SignIn = () => {
           placeholder="Password"
           required
         />
-        <button type="submit">Sign In</button>
+        <button className="signIn-container-button" type="submit">Sign In</button>
       </form>
       {error && <p>{error}</p>}
     </div>
