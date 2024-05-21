@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/SeyahatKart.css";
-import { SeyahatKartDialog } from "./SeyahatKartDialog";
-import SürücüResim from "../assets/driver.png";
+import SürücüResim from "../assets/cardriver.png";
 import { Link } from "react-router-dom";
-import { Alert } from "@mui/material";
 
 export const SeyahatKart = ({ seyahatler }) => {
   const [aramaKriterleri, setAramaKriterleri] = useState({
@@ -47,22 +45,9 @@ export const SeyahatKart = ({ seyahatler }) => {
       fetchData();
     }
   }, [aramaKriterleri]);
-  
 
   return (
     <div>
-      {/* <div>
-        {Object.values(aramaKriterleri).every(value => value === "") && (
-          <div>
-            <Alert
-              sx={{ fontSize: 20, backgroundColor: "salmon", borderRadius:20, width:900, marginTop:2 }}
-              severity="error"
-            >
-              Bu Seçimlere Uyan Bir Seyahat Bulunamamaktadır!
-            </Alert>
-          </div>
-        )}
-      </div> */}
       {seyahatler && (
         <div className="seyahat">
           {seyahatler.map((seyahat, index) => (
@@ -117,9 +102,9 @@ export const SeyahatKart = ({ seyahatler }) => {
                 <div className="sürücü-resim">
                   <img src={SürücüResim} alt="" />
                 </div>
-              <div className="sürücü-adsoyad">
-
-              </div>
+                <div className="sürücü-adsoyad">
+                  <p>{seyahat.surucuId}</p>
+                </div>
                 <div className="iletisim">
                   <Link to="/mesajlar">Sürücü İle İletişime Geç</Link>
                 </div>

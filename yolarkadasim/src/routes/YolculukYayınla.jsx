@@ -27,6 +27,7 @@ export default function YolculukYayınla() {
   const [ucret, setUcret] = useState(0);
   const [kaydetmeDurumu, setKaydetmeDurumu] = useState(null);
   const [surucuId, setSurucuId] = useState("")
+  
 
   useEffect(() => {
     const userToken = localStorage.getItem("token");
