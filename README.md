@@ -27,3 +27,10 @@ This project is a ride-sharing application that allows users to register, log in
 ![Ekran görüntüsü 2024-10-31 155337](https://github.com/user-attachments/assets/b1c13804-0ace-4aa2-82fd-1c00665bb90c)
 ![Ekran görüntüsü 2024-10-31 155605](https://github.com/user-attachments/assets/a1037f75-5c50-4d9f-9e69-a207da181d09)
 ![Ekran görüntüsü 2024-10-31 155618](https://github.com/user-attachments/assets/9b688985-de00-488c-812a-9a354dd5844b)
+
+Start the front-end server:
+
+```bash
+cd yolarkadasim
+npm run dev
+```
